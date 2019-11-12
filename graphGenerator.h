@@ -17,9 +17,9 @@ using sizeT = size_t;
 class graphGenerator
 {
 private:
-  realT getRandomPosition(realT maxValue);
+  static realT getRandomPosition(realT maxValue);
   std::vector<std::pair<realT, realT>>  generatePoints(sizeT numberOfNodes = 100, realT squereEdgeLength = 1.0);
-  realT norm(const std::pair<realT,realT> & a,const std::pair<realT,realT> & b );
+  realT norm(const Node & a,const Node & b);
 public:
   graphGenerator();
   ~graphGenerator();
