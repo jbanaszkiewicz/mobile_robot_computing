@@ -5,7 +5,7 @@
 #include <vector>
 #include <utility>  /* pair */
 #include "graph.h"
-// #include <time.h>       /* time */
+// #include <time.h> /* time */
 
 // https://en.wikipedia.org/wiki/Random_geometric_graph
 // Generates graph by
@@ -18,22 +18,13 @@ class graphGenerator
 {
 private:
   static realT getRandomPosition(realT maxValue);
-  std::vector<std::pair<realT, realT>>  generatePoints(sizeT numberOfNodes = 100, realT squereEdgeLength = 1.0);
-  realT norm(const Node & a,const Node & b);
+  static std::vector<std::pair<realT, realT>>  generatePoints(
+    sizeT numberOfNodes, realT squereEdgeLength);
+  static realT normSquered(const Node & a,const Node & b);
 public:
   graphGenerator();
   ~graphGenerator();
-  Graph const & getGraph(sizeT numberOfNodes = 100,realT radiusOfNeighbourhood = 0.1, realT squereEdgeLength = 1.0);
+  static Graph getGraph(
+    sizeT numberOfNodes = 100,realT radiusOfNeighbourhood = 0.1, realT squereEdgeLength = 1.0);
 };
-
-graphGenerator::graphGenerator()
-{
-  srand(NULL); // for Reproducibility
-}
-
-graphGenerator::~graphGenerator()
-{
-}
-
-
 #endif //GRAPH_GENERATOR_H

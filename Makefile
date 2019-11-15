@@ -1,8 +1,7 @@
-CC=gcc
+CC=g++
 CFLAGS=-I. -fopenmp
-DEPS = pso.h psoTests.h psoPrivate.h graph.h
-OBJ = main.o pso.o psoTests.o graph.o
-
+DEPS =  graphGenerator.h graph.h path.h psoPathSearch.h psoTests.h randomPath.h
+OBJ = main.o graphGenerator.o graph.o path.o psoPathSearch.o psoTests.o randomPath.o
 
 %.o: %.c $(DEPS)
 	$(CC) -g -c -o  $@ $< $(CFLAGS)
@@ -13,4 +12,4 @@ psoMain: $(OBJ)
 clean :
 	rm main $(OBJ) 
 # -g  #flag for gdb
-#-Wall -Wextra -pedantic 
+#-Wall -Wextra -pedantic  
