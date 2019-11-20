@@ -34,20 +34,23 @@ public:
 class PsoPathSearch
 {
 public:
-  PsoPathSearch();
+  PsoPathSearch(const Graph & graph,const Node& start,const Node& destination);
   ~PsoPathSearch();
-  static std::pair<Path,costT> FindShortestPath(
-    const Graph & graph,sizeT numberOfPartiles,const Node& start,const Node& destination, sizeT maximumIterations);
+  std::pair<Path,costT> FindShortestPath(
+    sizeT numberOfPartiles, sizeT maximumIterations)const;
 private:
-  static std::vector<Particle> getParticles(
-    const Graph & graph, sizeT numberOfPartiles,const Node& start,const Node& destination );
-  static std::pair<Path,costT> getBestSolution(
-    const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution);
-  static std::vector<Particle> updateParticles(
-    const Graph & graph,std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution);
-  static Particle updateParticle(
-    const Graph & graph,Particle& particle,const std::pair<Path,costT>& bestSolution);
+  const Graph& graph;
+  const Node& start;
+  const Node& destination;
 
+  std::vector<Particle> getParticles(
+    sizeT numberOfParticles)const;
+  std::pair<Path,costT> getBestSolution(
+    const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const;
+  std::vector<Particle> updateParticles(
+    std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const;
+  Particle updateParticle(
+    Particle& particle,const std::pair<Path,costT>& bestSolution)const;
 };
 
 #endif // PSO_PATH_SEARCH

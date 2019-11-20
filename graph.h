@@ -10,7 +10,9 @@ class Path;
 
 using sizeT = size_t;
 using realT = double;
-using keyT = std::pair<const Node&,const Node&>;
+using keyT = const Node;
+using valueT = std::pair<const Node &,realT>;
+using mapT = std::multimap<keyT,valueT>;
 
 class Node
 {
@@ -29,7 +31,7 @@ class Graph
 {
 private:
   std::vector<Node> nodes;
-  std::map<keyT,realT> edges;
+  mapT edges;
   
 public:
   Graph(sizeT n_nodes);
@@ -38,7 +40,8 @@ public:
   void addNode(std::pair<realT, realT>p);
   void addEdge(const Node & from, const Node & to,realT distance);
   realT getPathLength(const Path & path)const;
-
+  std::pair<mapT::const_iterator,mapT::const_iterator>
+    getNeighbours(const Node* node);
 /* TODO  FUNKCJA wyswietlajaca graf zeby byl ten sam */
 };
 

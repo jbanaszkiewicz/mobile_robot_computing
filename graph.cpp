@@ -17,10 +17,10 @@ void Graph::addNode(std::pair<realT, realT>p)
 {
   nodes.push_back(Node(p));   
 }
+
 void Graph::addEdge(const Node & from, const Node & to, realT distance)
 {
-  edges[keyT(from,to)] = distance; 
-  edges[keyT(to,from)] = distance; 
+  edges.insert( std::pair<keyT,valueT>(from, valueT(to, distance))); 
 }
 
 realT Graph::getPathLength(const Path & path)const
@@ -28,3 +28,10 @@ realT Graph::getPathLength(const Path & path)const
   throw std::logic_error("getPathLength Not Implemented");
   return realT();
 }
+
+std::pair<mapT::const_iterator,mapT::const_iterator>
+  Graph::getNeighbours(const Node* node)
+{
+  return edges.equal_range( *node);
+}
+  

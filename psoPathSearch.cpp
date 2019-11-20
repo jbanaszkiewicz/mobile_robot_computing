@@ -2,22 +2,25 @@
 #include "psoPathSearch.h"
 #include "randomPath.h"
 
-PsoPathSearch::PsoPathSearch()
+PsoPathSearch::PsoPathSearch(const Graph & graph,const Node& start,const Node& destination)
+:graph(graph),
+start(start),
+destination(destination)
 {}
 
 PsoPathSearch::~PsoPathSearch()
 {}
 
 std::pair<Path,costT> PsoPathSearch::FindShortestPath(
-  const Graph & graph,sizeT numberOfParticles,const Node& start,const Node& destination, sizeT maximumIterations = 500)
+  sizeT numberOfParticles, sizeT maximumIterations = 500)const
 { 
-  std::vector<Particle> particles = getParticles(graph, numberOfParticles, start, destination);
+  std::vector<Particle> particles = getParticles( numberOfParticles );
 
   std::pair<Path,costT> bestSolution = std::pair<Path,costT>(); // g, gBest
 
   for(sizeT i = 0; i < maximumIterations; ++i)
   {
-    particles = updateParticles(graph, particles, bestSolution);
+    particles = updateParticles(particles, bestSolution);
     bestSolution = getBestSolution(particles,bestSolution);
   }
 
@@ -25,7 +28,7 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 }
 
 std::vector<Particle> PsoPathSearch::getParticles(
-  const Graph & graph, sizeT numberOfParticles,const Node& start,const Node& destination )
+  sizeT numberOfParticles )const
 {
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
@@ -39,7 +42,7 @@ std::vector<Particle> PsoPathSearch::getParticles(
 }
 
 std::pair<Path,costT>  PsoPathSearch::getBestSolution(
-  const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)
+  const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const
 {
   auto bestParticle =  std::max_element(particles.begin(),particles.end(),[](Particle l, Particle r) { 
         return l.bestCost > r.bestCost; 
@@ -53,18 +56,38 @@ std::pair<Path,costT>  PsoPathSearch::getBestSolution(
 }
 
 std::vector<Particle> PsoPathSearch::updateParticles(
-  const Graph & graph,std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)
+  std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const
 {
   for(auto & p : particles)
   {
-    updateParticle(graph,p,bestSolution);
+    updateParticle(p,bestSolution);
   } 
   return particles;
 }
 
 Particle PsoPathSearch::updateParticle(
-  const Graph & graph,Particle& particle,const std::pair<Path,costT>& bestSolution)
+  Particle& particle,const std::pair<Path,costT>& bestSolution)const
 {
+  Path newPath = Path();
+  
+  const auto* current = &start;
+  size_t i = 1;
+  do
+  {
+    newPath.nodes.push_back(current);
+    
+    //auto neighbours = getNeighbours(current);
+
+    //current = getNeighbourClosestTo(neighbours,bestSolution.first.getNode(i), particle.bestPath.getNode(i));
+
+  }while (1/*from start to finish*/);
+  
+
+
+  particle.currentPath = newPath;
+  return particle;
+}
+
   // particle.currentPath;
   // particle.bestPath;
   // bestSolution.first
@@ -73,5 +96,3 @@ Particle PsoPathSearch::updateParticle(
   // {
     
   // }
-  return particle;
-}
