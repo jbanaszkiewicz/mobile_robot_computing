@@ -1,32 +1,38 @@
 #include "graphGenerator.h"
 #include <math.h>
 
-graphGenerator::graphGenerator()
+GraphGenerator::GraphGenerator()
 {
   srand(0); // for Reproducibility
 }
 
-graphGenerator::~graphGenerator()
+GraphGenerator::~GraphGenerator()
 {
 }
 
-realT graphGenerator::getRandomPosition(realT maxValue)
+realT GraphGenerator::getRandomPosition(realT maxValue)
 {
   return static_cast <realT> (rand()) / (static_cast <realT> (RAND_MAX/maxValue));
 }
 
-std::vector<std::pair<realT, realT>> graphGenerator::generatePoints(
+std::vector<pointT> GraphGenerator::generatePoints(
   sizeT numberOfPoints, realT squereEdgeLength)
 {
-  auto v = std::vector<std::pair<realT, realT>>(numberOfPoints);
-  for (sizeT i = 0; i < numberOfPoints; i++)
+  auto v = std::vector<pointT>();
+  v.reserve(numberOfPoints);
+
+  realT realTZero = static_cast<realT>(0.0);
+  v.push_back(pointT(realTZero,realTZero));
+  v.push_back(pointT(squereEdgeLength,squereEdgeLength));
+
+  for (sizeT i = 2; i < numberOfPoints; i++)
   {
-    v.push_back(std::pair<realT, realT>(getRandomPosition(squereEdgeLength),getRandomPosition(squereEdgeLength)));
+    v.push_back(pointT(getRandomPosition(squereEdgeLength),getRandomPosition(squereEdgeLength)));
   }  
   return v;
 }
 
-realT graphGenerator::normSquered(const Node & a,const Node & b)
+realT GraphGenerator::normSquered(const Node & a,const Node & b)
 {
   auto firstA = a.position.first;
   auto secondA = a.position.second;
@@ -37,7 +43,7 @@ realT graphGenerator::normSquered(const Node & a,const Node & b)
     + (secondA - secondB)*(secondA - secondB);
 }
 
-Graph graphGenerator::getGraph(
+Graph GraphGenerator::getGraph(
   sizeT numberOfNodes,realT radiusOfNeighbourhood, realT squereEdgeLength)
 {
   Graph g(numberOfNodes);
@@ -48,7 +54,7 @@ Graph graphGenerator::getGraph(
     g.addNode(p);
   }
 
-  auto nodes = g.getNodes();
+  const auto & nodes = g.getNodes();
   auto radiusOfNeighbourhoodSquered = radiusOfNeighbourhood * radiusOfNeighbourhood;
 
   for(const auto & p : nodes)
@@ -63,4 +69,14 @@ Graph graphGenerator::getGraph(
       }
     }
   }
+
+  return g;
+}
+const Node& GraphGenerator::getStart(const Graph & graph)
+{
+  return graph.getNodes()[0];
+}
+const Node& GraphGenerator::getDestination(const Graph & graph)
+{
+  return graph.getNodes()[1];
 }

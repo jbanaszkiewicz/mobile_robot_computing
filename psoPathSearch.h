@@ -51,6 +51,12 @@ private:
     std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const;
   Particle updateParticle(
     Particle& particle,const std::pair<Path,costT>& bestSolution)const;
+  const Node* getNeighbourClosestTo(
+    std::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
+    const Node* globalBestPathNode,
+    const Node* particelBestPathNode
+    )const; 
+  friend class PsoTests;
 };
 
 #endif // PSO_PATH_SEARCH

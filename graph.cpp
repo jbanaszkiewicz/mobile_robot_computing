@@ -1,14 +1,17 @@
 #include "graph.h"
+#include <iostream>
+
 Graph::Graph(sizeT n_nodes)
 {
   nodes = std::vector<Node>();
+  nodes.reserve(n_nodes);
 }
 
 Graph::~Graph()
 {
 }
 
-std::vector<Node> Graph::getNodes()
+const std::vector<Node>& Graph::getNodes()const
 {
   return nodes;
 }
@@ -20,7 +23,7 @@ void Graph::addNode(std::pair<realT, realT>p)
 
 void Graph::addEdge(const Node & from, const Node & to, realT distance)
 {
-  edges.insert( std::pair<keyT,valueT>(from, valueT(to, distance))); 
+  edges.insert( std::pair<keyT,valueT>(&from, valueT(&to, distance))); 
 }
 
 realT Graph::getPathLength(const Path & path)const
@@ -30,8 +33,30 @@ realT Graph::getPathLength(const Path & path)const
 }
 
 std::pair<mapT::const_iterator,mapT::const_iterator>
-  Graph::getNeighbours(const Node* node)
+  Graph::getNeighbours(const Node* node)const
 {
-  return edges.equal_range( *node);
+  return edges.equal_range( node);
 }
-  
+
+void Graph::showGraph()const
+{
+  showNodes();
+  showEdges();
+}
+
+void Graph::showNodes()const
+{
+  for(const auto& i : nodes)
+  {
+    std::cout << i.position.first << "," << i.position.second << std::endl;
+  }
+}
+
+void Graph::showEdges()const
+{
+  for(const auto& i : edges)
+  {
+    std::cout << i.first->position.first <<","<< i.first->position.second << \
+    "->" << i.second.first->position.first <<","<< i.second.first->position.first << std::endl;
+  }
+}

@@ -45,6 +45,18 @@
     "map": "cpp",
     "memory_resource": "cpp",
     "random": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "cstring": "cpp",
+    "ctime": "cpp",
+    "strstream": "cpp",
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "complex": "cpp",
+    "list": "cpp",
+    "ratio": "cpp",
+    "thread": "cpp",
+    "typeindex": "cpp",
+    "set": "cpp",
+    "iostream": "cpp"
   }
 }

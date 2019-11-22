@@ -1,6 +1,7 @@
 #include <algorithm> // std::max_element
 #include "psoPathSearch.h"
 #include "randomPath.h"
+#include "graphGenerator.h"
 
 PsoPathSearch::PsoPathSearch(const Graph & graph,const Node& start,const Node& destination)
 :graph(graph),
@@ -45,7 +46,7 @@ std::pair<Path,costT>  PsoPathSearch::getBestSolution(
   const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const
 {
   auto bestParticle =  std::max_element(particles.begin(),particles.end(),[](Particle l, Particle r) { 
-        return l.bestCost > r.bestCost; 
+        return l.bestCost < r.bestCost; 
     });
 
   if (bestSolution.second >= bestParticle->bestCost)
@@ -71,16 +72,17 @@ Particle PsoPathSearch::updateParticle(
   Path newPath = Path();
   
   const auto* current = &start;
+  newPath.nodes.push_back(current);
   size_t i = 1;
   do
   {
+    auto neighbours = graph.getNeighbours(current);
+
+    current = getNeighbourClosestTo(neighbours,bestSolution.first.getNode(i), particle.bestPath.getNode(i));
+
     newPath.nodes.push_back(current);
-    
-    //auto neighbours = getNeighbours(current);
-
-    //current = getNeighbourClosestTo(neighbours,bestSolution.first.getNode(i), particle.bestPath.getNode(i));
-
-  }while (1/*from start to finish*/);
+    ++i;
+  }while (current != &destination);
   
 
 
@@ -88,11 +90,25 @@ Particle PsoPathSearch::updateParticle(
   return particle;
 }
 
-  // particle.currentPath;
-  // particle.bestPath;
-  // bestSolution.first
-  // Path updatedPath;
-  // while (1/*from start to finish*/)
-  // {
-    
-  // }
+const Node* PsoPathSearch::getNeighbourClosestTo(
+  std::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
+  const Node* globalBestPathNode,
+  const Node* particelBestPathNode
+  )const
+{
+  auto closestNeighbour = neighbours.first;
+  auto smallestNorm = GraphGenerator::normSquered(*(*closestNeighbour).second.first,*globalBestPathNode) 
+    + GraphGenerator::normSquered(*(*closestNeighbour).second.first,*particelBestPathNode);
+
+  for( auto i =  neighbours.first; i != neighbours.second; ++i)
+  {
+    auto norm = GraphGenerator::normSquered(*(*closestNeighbour).second.first,*globalBestPathNode) 
+        + GraphGenerator::normSquered(*(*closestNeighbour).second.first,*particelBestPathNode);
+    if(norm < smallestNorm)
+    {
+      closestNeighbour = i;
+      smallestNorm = norm;
+    }
+  }
+    return (*closestNeighbour).second.first;
+}

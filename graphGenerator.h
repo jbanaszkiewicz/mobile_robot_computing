@@ -13,18 +13,21 @@
 // conects ones in Neighbourhood given by radius
 using realT = double;
 using sizeT = size_t;
+using pointT = std::pair<realT, realT>;
 
-class graphGenerator
+class GraphGenerator
 {
 private:
   static realT getRandomPosition(realT maxValue);
-  static std::vector<std::pair<realT, realT>>  generatePoints(
+  static std::vector<pointT>  generatePoints(
     sizeT numberOfNodes, realT squereEdgeLength);
-  static realT normSquered(const Node & a,const Node & b);
 public:
-  graphGenerator();
-  ~graphGenerator();
+  GraphGenerator();
+  ~GraphGenerator();
   static Graph getGraph(
     sizeT numberOfNodes = 100,realT radiusOfNeighbourhood = 0.1, realT squereEdgeLength = 1.0);
+  static const Node& getStart(const Graph & graph);
+  static const Node& getDestination(const Graph & graph);
+  static realT normSquered(const Node & a,const Node & b);
 };
 #endif //GRAPH_GENERATOR_H
