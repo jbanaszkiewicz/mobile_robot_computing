@@ -4,6 +4,7 @@
 #include "graph.h"
 class Node;
 
+//todo zadeklarowac funkcje do liczenia dlugosci sciezki ADAM
 class Path
 {
 public:
