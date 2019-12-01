@@ -28,7 +28,7 @@ void Graph::addEdge(const Node & from, const Node & to, realT distance)
 
 realT Graph::getPathLength(const Path & path)const
 {
-  //todo napisac kod pod dlugosc sciezki, zdecydowac czy ma byc tu czy w path.cpp ADAM
+  //TODO: napisac kod pod dlugosc sciezki, zdecydowac czy ma byc tu czy w path.cpp ADAM
   throw std::logic_error("getPathLength Not Implemented");
   return realT();
 }
