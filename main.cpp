@@ -1,4 +1,6 @@
 #include "psoTests.h"
+#include "graphGenerator.h"
+#include "psoPathSearch.h"
 
 int main(int argc, char **argv) {
   PsoTests::runTests();

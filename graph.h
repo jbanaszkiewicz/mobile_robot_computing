@@ -25,6 +25,8 @@ public:
   {
     return this->position < right.position;
   }
+  realT getPositionX()const;
+  realT getPositionY()const;
 };
 
 class Graph

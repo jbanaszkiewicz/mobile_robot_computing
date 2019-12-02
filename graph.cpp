@@ -1,6 +1,16 @@
 #include "graph.h"
 #include <iostream>
 
+realT Node::getPositionX()const
+{
+  return this->position.first;
+}
+
+realT Node::getPositionY()const
+{
+  return this->position.second;
+}
+
 Graph::Graph(sizeT n_nodes)
 {
   nodes = std::vector<Node>();

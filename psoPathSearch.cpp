@@ -38,7 +38,7 @@ std::vector<Particle> PsoPathSearch::getParticles(
   for (sizeT i = 0; i < numberOfParticles; i++)
   {
     //TODO: KUBA zrownoleglic przypisywanie OpenMP
-    auto pathLength = graph.getPathLength(randomPaths[i]);
+    auto pathLength = randomPaths[i].getLength();
     particles[i] = Particle(randomPaths[i],pathLength);
   }
   return particles;
