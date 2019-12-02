@@ -39,7 +39,6 @@ public:
   const std::vector<Node>& getNodes()const;
   void addNode(std::pair<realT, realT>p);
   void addEdge(const Node& from, const Node& to,realT distance);
-  realT getPathLength(const Path & path)const;
   std::pair<mapT::const_iterator,mapT::const_iterator>
     getNeighbours(const Node* node)const;
   void showGraph()const;

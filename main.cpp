@@ -2,19 +2,19 @@
 
 int main(int argc, char **argv) {
   PsoTests::runTests();
-  //TODO: napisac funkcje zapisujaca graf do pliku ADAM
+  //TODO: ADAM napisac funkcje zapisujaca graf do pliku
     // trzeba zapisac do pliku tylko wspolrzedne wezlow. Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
-  //TODO: napisac funckje wczytujaca plik z grafem do grafu ADAM
-  //TODO: dodac pliki zrodlowe tutaj
+  //TODO: ADAM napisac funckje wczytujaca plik z grafem do grafu
+  //TODO: ADAM dodac pliki zrodlowe tutaj
   
   auto graph = GraphGenerator::getGraph(3, 2.0);
   auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
-  //TODO: poczatek czasu KUBA
+  //TODO: KUBA poczatek czasu
   //path, path_cost =  search.findshortestpath(nr_of_particles, nr_of_iterations) //TODO: jakas tak funkcja
-  //TODO: koniec czasu KUBA
-  //TODO: policz duration KUBA
+  //TODO: KUBA koniec czasu
+  //TODO: KUBA policz duration
 
-  //TODO: wygenerowac plik wielokrotnie uruchamiajacy skrypt KUBA
+  //TODO: KUBA wygenerowac plik wielokrotnie uruchamiajacy skrypt
     //przekazac przez argv rozmiar grafu, nr_of_particles, nr_of_iterations-> do findshortestpath
 
   //TODO: statystyki
@@ -26,6 +26,6 @@ int main(int argc, char **argv) {
   
 
   //TODO: sprawdzic po ilu interacjach generowania sciezka wynikowa jest zawsze taka sama i tą ilość iteracji wybrać jako końcową  -> zadanie na pozniej
-  // zrobić make projektu ADAM KUBA
-  //dodac .vs do git ignore KUBA
+  //TODO: ADAM KUBA zrobić make projektu
+  //TODO: KUBA dodac .vs do git ignore
 }

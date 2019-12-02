@@ -16,3 +16,10 @@ const Node* Path::getNode(size_t i)const
   }
   return nodes[i];
 }
+
+realT Path::getLength()const
+{
+  //TODO: ADAM napisac kod pod dlugosc sciezki
+  throw std::logic_error("getPathLength Not Implemented");
+  return realT();
+}

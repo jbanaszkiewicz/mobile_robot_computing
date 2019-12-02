@@ -18,7 +18,7 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
   std::vector<Particle> particles = getParticles( numberOfParticles );
 
   std::pair<Path,costT> bestSolution = std::pair<Path,costT>(); // g, gBest
-  //TODO: zwrownoleglic OpenMP
+  //TODO: KUBA zwrownoleglic OpenMP
   for(sizeT i = 0; i < maximumIterations; ++i)
   {
     particles = updateParticles(particles, bestSolution);
@@ -31,13 +31,13 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 std::vector<Particle> PsoPathSearch::getParticles(
   sizeT numberOfParticles )const
 {
-  //TODO: to bedzie zwronoleglone KUBA
+  //TODO: KUBA to bedzie zwronoleglone
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
 
   for (sizeT i = 0; i < numberOfParticles; i++)
   {
-    //TODO: zrownoleglic przypisywanie OpenMP KUBA
+    //TODO: KUBA zrownoleglic przypisywanie OpenMP
     auto pathLength = graph.getPathLength(randomPaths[i]);
     particles[i] = Particle(randomPaths[i],pathLength);
   }

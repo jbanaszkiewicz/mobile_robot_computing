@@ -11,9 +11,9 @@ RandomPath::~RandomPath()
 std::vector<Path> RandomPath::getRandomPaths(
   const Graph & graph, sizeT numberOfPaths,const Node& start,const Node& destination)
 {
-  //TODO: zrownoleglic generowanie losowych sciezek KUBA
+  //TODO: KUBA zrownoleglic generowanie losowych sciezek KUBA
   
-  //TODO: dopisać generator ścieżek ADAM
+  //TODO: ADAM dopisać generator ścieżek
   //while vector size < NumberofPaths: losuj dalej sciezke:
     //while currentNode != destination:
       

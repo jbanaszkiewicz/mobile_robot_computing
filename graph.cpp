@@ -26,13 +26,6 @@ void Graph::addEdge(const Node & from, const Node & to, realT distance)
   edges.insert( std::pair<keyT,valueT>(&from, valueT(&to, distance))); 
 }
 
-realT Graph::getPathLength(const Path & path)const
-{
-  //TODO: napisac kod pod dlugosc sciezki, zdecydowac czy ma byc tu czy w path.cpp ADAM
-  throw std::logic_error("getPathLength Not Implemented");
-  return realT();
-}
-
 std::pair<mapT::const_iterator,mapT::const_iterator>
   Graph::getNeighbours(const Node* node)const
 {

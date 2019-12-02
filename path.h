@@ -4,7 +4,7 @@
 #include "graph.h"
 class Node;
 
-//TODO: zadeklarowac funkcje do liczenia dlugosci sciezki ADAM
+//TODO: ADAM Napisać jakieś pola/tworzenie ścieżki
 class Path
 {
 public:
@@ -12,6 +12,7 @@ public:
   ~Path();
   const Node* getNode(size_t i)const;
   std::vector<const Node*> nodes;
+  realT getLength()const;
 };
 
 #endif // PATH_H
