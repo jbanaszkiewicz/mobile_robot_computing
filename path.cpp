@@ -1,7 +1,7 @@
 #include "path.h"
 #include <cmath>
 
-Path::Path(/* args */)
+Path::Path()
 {
 }
 

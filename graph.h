@@ -18,13 +18,25 @@ class Node
 {
 public:
   std::pair<realT, realT> position;
+
   Node(std::pair<realT, realT> p)
   :position(p)
   {}
+
   bool operator<(const Node& right)const
   {
     return this->position < right.position;
   }
+  bool operator==(const Node& right)
+  {
+    return this->position == right.position;
+  }
+  bool operator!=(const Node& right)
+  {
+    return this->position != right.position;
+  }
+  // TODO: ADAM zapytaj chłopaków, czy porównanie może opierać się jedynie na współrzędnych, a nie na adresie
+
   realT getPositionX()const;
   realT getPositionY()const;
 };

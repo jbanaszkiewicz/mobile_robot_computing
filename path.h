@@ -4,13 +4,12 @@
 #include "graph.h"
 class Node;
 
-//TODO: ADAM Napisać jakieś tworzenie ścieżki
 class Path
 {
 public:
   std::vector<const Node*> nodes;
 
-  Path(/* args */);
+  Path();
   ~Path();
   const Node* getNode(size_t i)const;
   realT getLength()const;
