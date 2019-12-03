@@ -5,7 +5,8 @@
 int main(int argc, char **argv) {
   PsoTests::runTests();
   //TODO: ADAM napisac funkcje zapisujaca graf do pliku
-    // trzeba zapisac do pliku tylko wspolrzedne wezlow. Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
+    // trzeba zapisac do pliku tylko wspolrzedne wezlow.
+    // Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
   //TODO: ADAM napisac funckje wczytujaca plik z grafem do grafu
   
   auto graph = GraphGenerator::getGraph(3, 2.0);

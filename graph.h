@@ -39,6 +39,8 @@ public:
 
   realT getPositionX()const;
   realT getPositionY()const;
+  void setPositionX(realT x);
+  void setPositionY(realT y);
 };
 
 class Graph
@@ -58,7 +60,8 @@ public:
   void showGraph()const;
   void showEdges()const;
   void showNodes()const;
-
+  void saveToFile(std::string filename)const;
+  std::vector<Node> getNodesFromFile(std::string filename)const;
 
   friend class PsoTests;
 };

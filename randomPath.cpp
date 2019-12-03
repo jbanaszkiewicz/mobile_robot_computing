@@ -25,26 +25,17 @@ std::vector<Path> RandomPath::getRandomPaths(
     
     while (currentNode != destination)
     {
-      /* code */
-    }
-    
-    // TODO: ADAM Sprawdź, czy ten zapis będzie działał poprawnie
-    randomPaths.push_back(*currentPath);
-  }
-  
-  //while vector size < NumberofPaths: losuj dalej sciezke:
-    //while currentNode != destination:
-      
       //z sasiednich node'ow wybierz loswy
       // sprawdz czy jest on Node destination
         //jezeli nie jest 
           // //z polowy najlepszych nodow sasiednich wybierz nastepnego (getNeighbours) 
           //(jakosc oceniana na podstawie kwadratu odl do destination x y (graffenerator.NormSquared))
           //dodaj do obecnej sciezki
-
-        //jezeli jest dodaj sciezke do vectora sciezek
-
-      //zwróć vector ściezek
+    }
+    
+    // TODO: ADAM Sprawdź, czy ten zapis będzie działał poprawnie
+    randomPaths.push_back(*currentPath);
+  }
 
   return randomPaths;
 }

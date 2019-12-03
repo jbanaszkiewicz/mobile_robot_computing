@@ -1,5 +1,6 @@
 #include "graph.h"
 #include <iostream>
+#include <fstream>
 
 realT Node::getPositionX()const
 {
@@ -9,6 +10,16 @@ realT Node::getPositionX()const
 realT Node::getPositionY()const
 {
   return this->position.second;
+}
+
+void Node::setPositionX(realT x)
+{
+  this->position.first = x;
+}
+
+void Node::setPositionY(realT y)
+{
+  this->position.second = y;
 }
 
 Graph::Graph(sizeT n_nodes)
@@ -63,4 +74,31 @@ void Graph::showEdges()const
     std::cout << i.first->position.first <<","<< i.first->position.second << \
     "->" << i.second.first->position.first <<","<< i.second.first->position.first << std::endl;
   }
+}
+
+void Graph::saveToFile(std::string filename)const
+{
+  std::ofstream outputFile;
+  realT currentX, currentY;
+  outputFile.open(filename);
+
+  for (size_t i = 0; i < this->nodes.size(); i++)
+  {
+    currentX = this->nodes.at(i).getPositionX();
+    currentY = this->nodes.at(i).getPositionY();
+    outputFile << currentX << '\n' << currentY << '\n';
+  }
+  
+  outputFile.close();
+}
+
+std::vector<Node> Graph::getNodesFromFile(std::string filename)const
+{
+  std::vector<Node> nodesFromFile;
+  std::ifstream inputFile;
+  realT currentX, currentY;
+  inputFile.open(filename);
+
+
+  inputFile.close();
 }
