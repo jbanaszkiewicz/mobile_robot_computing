@@ -95,10 +95,21 @@ void Graph::saveToFile(std::string filename)const
 std::vector<Node> Graph::getNodesFromFile(std::string filename)const
 {
   std::vector<Node> nodesFromFile;
+  std::pair<realT, realT> currentPosition;
   std::ifstream inputFile;
-  realT currentX, currentY;
+
   inputFile.open(filename);
 
+  while (! inputFile.eof())
+  {
+    inputFile >> currentPosition.first;
+    inputFile >> currentPosition.second;
+    nodesFromFile.push_back(Node(currentPosition));
+  }
 
   inputFile.close();
+
+  // TODO: ADAM Przerobić funkcję na voida
+
+  return nodesFromFile;
 }
