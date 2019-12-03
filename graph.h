@@ -27,13 +27,13 @@ public:
   {
     return this->position < right.position;
   }
-  bool operator==(const Node& right)
+  bool operator==(const Node* right)
   {
-    return this->position == right.position;
+    return this->position == right->position;
   }
-  bool operator!=(const Node& right)
+  bool operator!=(const Node* right)
   {
-    return this->position != right.position;
+    return this->position != right->position;
   }
   // TODO: ADAM zapytaj chłopaków, czy porównanie może opierać się jedynie na współrzędnych, a nie na adresie
 
