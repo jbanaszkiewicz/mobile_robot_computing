@@ -7,7 +7,6 @@ int main(int argc, char **argv) {
   //TODO: ADAM napisac funkcje zapisujaca graf do pliku
     // trzeba zapisac do pliku tylko wspolrzedne wezlow. Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
   //TODO: ADAM napisac funckje wczytujaca plik z grafem do grafu
-  //TODO: ADAM dodac pliki zrodlowe tutaj
   
   auto graph = GraphGenerator::getGraph(3, 2.0);
   auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
@@ -28,6 +27,6 @@ int main(int argc, char **argv) {
   
 
   //TODO: sprawdzic po ilu interacjach generowania sciezka wynikowa jest zawsze taka sama i tą ilość iteracji wybrać jako końcową  -> zadanie na pozniej
-  //TODO: ADAM KUBA zrobić make projektu
+  //TODO: KUBA zrobić make projektu
   //TODO: KUBA dodac .vs do git ignore
 }
