@@ -1,4 +1,5 @@
 #include "path.h"
+#include <cmath>
 
 Path::Path(/* args */)
 {
@@ -19,17 +20,29 @@ const Node* Path::getNode(size_t i)const
 
 realT Path::getLength()const
 {
-  //TODO: ADAM napisac kod pod dlugosc sciezki
+  realT length = 0;
+  realT partialLength = 0;
 
-  // PSEUDOKOD: weź pierwszy element wektora
-  // zapisz jego współrzędne jako współrzędne węzła poprzedniego
-  // sumuj odległości w pętli aż do wyrazu n
-  // pamiętaj współrzędne węzła poprzedniego i aktualizuj
+  realT previousX = this->nodes.at(0)->getPositionX();
+  realT previousY = this->nodes.at(0)->getPositionY();
+  realT currentX, currentY;
 
-  // zwróć długość ścieżki - to dosyć prosta funkcja będzie
+  for (auto i = 1; i < this->nodes.size(); i++)
+  {
+    currentX = this->nodes.at(i)->getPositionX();
+    currentY = this->nodes.at(i)->getPositionY();
 
-  throw std::logic_error("getPathLength Not Implemented");
-  return realT();
+    partialLength = sqrt( pow( currentX - previousX, 2 ) + pow( currentY - previousY, 2 ) );
+    length += partialLength;
+
+    if (i != (this->nodes.size() - 1))
+    {
+      previousX = currentX;
+      previousY = currentY;
+    }
+  }
+
+  return length;
 }
 
 void Path::addNodeToPath(const Node* node)
