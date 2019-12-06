@@ -28,6 +28,9 @@ public:
 
   ~Particle()
   {}
+
+
+  void setPath(const Path& path);
 };
 
 
@@ -49,8 +52,8 @@ private:
     const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const;
   std::vector<Particle> updateParticles(
     std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const;
-  Particle updateParticle(
-    Particle& particle,const std::pair<Path,costT>& bestSolution)const;
+  Path getNextPath(
+    const Particle& particle,const std::pair<Path,costT>& bestSolution)const;
   const Node* getNeighbourClosestTo(
     std::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
     const Node* globalBestPathNode,
