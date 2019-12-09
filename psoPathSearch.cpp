@@ -2,6 +2,7 @@
 #include "psoPathSearch.h"
 #include "randomPath.h"
 #include "graphGenerator.h"
+#include <omp.h>
 
 PsoPathSearch::PsoPathSearch(const Graph & graph,const Node& start,const Node& destination)
 :graph(graph),
@@ -19,6 +20,7 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 
   std::pair<Path,costT> bestSolution = std::pair<Path,costT>(); // g, gBest
   //TODO: KUBA zwrownoleglic OpenMP
+  // #pragma omp paralell for
   for(sizeT i = 0; i < maximumIterations; ++i)
   {
     particles = updateParticles(particles, bestSolution);
