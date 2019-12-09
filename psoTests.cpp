@@ -84,7 +84,7 @@ void PsoTests::testUpdateParticle()
   bestPath.nodes = bestSolutionNodes;
   auto bestSolution = std::pair<Path,costT>(bestPath, 0);
   
-  search.updateParticle(particle, bestSolution);
+  auto path = search.getNextPath(particle, bestSolution);
 
-  assert(particle.currentPath.nodes == bestPath.nodes);
+  assert(path.nodes == bestPath.nodes);
 }

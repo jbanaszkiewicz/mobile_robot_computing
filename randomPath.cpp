@@ -46,13 +46,17 @@ std::vector<Path> RandomPath::getRandomPaths(
 
       // Zakładam, że w tym miejscu mam już kilka node'ów sąsiednich, z których mam wylosować
       // Sortowanie elementów w wektorze sąsiadów ze względu na kwadrat ich odległości od destination
-      std::sort(neighbourNodes.begin(), neighbourNodes.end(), compareNeighbours);
+      std::sort(neighbourNodes.begin(), neighbourNodes.end(), 
+        [&](const Node& node1, const Node& node2 )->bool
+        {
+          return compareNeighbours(node1, node2,destination);
+        });
 
       // Ustalam liczbę odpowiadającą połowie sąsiadów
       if (neighbourNodes.size() == 0)
       {
         halfOfNeighbours = 0;
-      } else if (neighbourNodes.size == 1)
+      } else if (neighbourNodes.size() == 1)
       {
         halfOfNeighbours = 1;
       } else

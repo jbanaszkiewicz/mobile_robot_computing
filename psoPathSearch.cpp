@@ -65,13 +65,14 @@ std::vector<Particle> PsoPathSearch::updateParticles(
 {
   for(auto & p : particles)
   {
-    updateParticle(p,bestSolution);
+    const auto newPath = getNextPath(p,bestSolution);
+    p.setPath(newPath);
   } 
   return particles;
 }
 
-Particle PsoPathSearch::updateParticle(
-  Particle& particle,const std::pair<Path,costT>& bestSolution)const
+Path PsoPathSearch::getNextPath(
+  const Particle& particle,const std::pair<Path,costT>& bestSolution)const
 {
   Path newPath = Path();
   
@@ -88,10 +89,7 @@ Particle PsoPathSearch::updateParticle(
     ++i;
   }while (current != &destination);
   
-
-
-  particle.currentPath = newPath;
-  return particle;
+  return newPath;
 }
 
 const Node* PsoPathSearch::getNeighbourClosestTo(
@@ -115,4 +113,15 @@ const Node* PsoPathSearch::getNeighbourClosestTo(
     }
   }
     return (*closestNeighbour).second.first;
+}
+
+void Particle::setPath(const Path& path)
+{
+  currentPath = path; 
+  currentCost = path.getLength();
+  if(currentCost < bestCost)
+  {
+    bestCost = currentCost;
+    bestPath = currentPath;
+  }
 }
