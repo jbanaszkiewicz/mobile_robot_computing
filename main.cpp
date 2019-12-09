@@ -5,11 +5,11 @@
 #include <cstdlib>
 
 using namespace std::chrono;
-
+// TODO Kuba dokończyć konfigurację c++ wg https://code.visualstudio.com/docs/cpp/config-mingw 
 int main(int argc, char **argv) {
   PsoTests::runTests();
-  //TODO get argv 
-  if (argc<1){
+
+  if (argc<1){   //COMPLETED get argv 
     printf("You haven't passed required arguments to the program.");
 
     return -1;
@@ -43,6 +43,5 @@ int main(int argc, char **argv) {
 
   //TODO: sprawdzic po ilu interacjach generowania sciezka wynikowa jest zawsze taka sama i tą ilość iteracji wybrać jako końcową  -> zadanie na pozniej
   //TODO: KUBA zrobić make projektu
-  //TODO: KUBA dodac .vs do git ignore
   return 0;
 }
