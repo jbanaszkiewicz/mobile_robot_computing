@@ -65,7 +65,7 @@ public:
   void showNodes()const;
   void saveToFile(std::string filename)const;
   std::vector<Node> getNodesFromFile(std::string filename)const;
-
+  void setNodes();
   friend class PsoTests;
 };
 

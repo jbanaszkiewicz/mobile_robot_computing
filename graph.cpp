@@ -1,6 +1,7 @@
 #include "graph.h"
 #include <iostream>
 #include <fstream>
+#include "graphGenerator.h"
 
 realT Node::getPositionX()const
 {
@@ -106,24 +107,26 @@ void Graph::saveToFile(std::string filename)const
   outputFile.close();
 }
 
-std::vector<Node> Graph::getNodesFromFile(std::string filename)const
+Graph Graph::getGraph(std::string filename)const
 {
   std::vector<Node> nodesFromFile;
   std::pair<realT, realT> currentPosition;
   std::ifstream inputFile;
-
+  realT radiusOfNeighbourhood;
+  
   inputFile.open(filename);
-
+  sizeT nrNodes; 
+  inputFile >> nrNodes;
+  Graph graph = Graph(nrNodes);
+  inputFile >> radiusOfNeighbourhood; 
   while (! inputFile.eof())
   {
     inputFile >> currentPosition.first;
     inputFile >> currentPosition.second;
-    nodesFromFile.push_back(Node(currentPosition));
+    graph.addNode(currentPosition);
   }
-
   inputFile.close();
-
-  // TODO: ADAM Przerobić funkcję na voida
-
-  return nodesFromFile;
+  graph = GraphGenerator::addEdges(graph, radiusOfNeighbourhood);
+  return graph;
 }
+
