@@ -53,6 +53,20 @@ std::pair<mapT::const_iterator,mapT::const_iterator>
   return edges.equal_range( node);
 }
 
+std::vector<const Node*> Graph::getNeighboursVector(
+  std::pair<mapT::const_iterator,mapT::const_iterator> neighbours
+)const
+{
+  std::vector<const Node*> neighboursVector;
+
+  for (auto i = neighbours.first; i != neighbours.second; ++i)
+  {
+    neighboursVector.push_back((*i).second.first);
+  }
+  
+  return neighboursVector;
+}
+
 void Graph::showGraph()const
 {
   showNodes();

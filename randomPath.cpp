@@ -22,7 +22,7 @@ std::vector<Path> RandomPath::getRandomPaths(
 {
   //TODO: KUBA zrownoleglic generowanie losowych sciezek KUBA
   std::vector<Path> randomPaths;
-  std::vector<Node> neighbourNodes;
+  std::vector<const Node*> neighbourNodes;
   Path *currentPath;
   const Node* currentNode = &start;
   int halfOfNeighbours = 0;
@@ -39,7 +39,7 @@ std::vector<Path> RandomPath::getRandomPaths(
     
     while (currentNode != &destination)
     {
-      graph.getNeighbours(currentNode);
+      neighbourNodes = graph.getNeighboursVector(graph.getNeighbours(currentNode));
       // Sytuacja wygląda tak: funkcja getNeighbours zwraca parę iteratorów
       // A chyba miało być tak, że w jakiś sposób dowiaduję się o wszystkich sąsiadach
       // I to z nich wybieram lepszą połowę
@@ -49,7 +49,7 @@ std::vector<Path> RandomPath::getRandomPaths(
       std::sort(neighbourNodes.begin(), neighbourNodes.end(), 
         [&](const Node& node1, const Node& node2 )->bool
         {
-          return compareNeighbours(node1, node2,destination);
+          return compareNeighbours(node1, node2, destination);
         });
 
       // Ustalam liczbę odpowiadającą połowie sąsiadów
@@ -68,7 +68,7 @@ std::vector<Path> RandomPath::getRandomPaths(
       indexOfChosenNeighbour = rand()%(halfOfNeighbours);
       
       // Ustawienie nowego aktualnego węzła i dodanie go do aktualnej ścieżki
-      currentNode = &(neighbourNodes.at(indexOfChosenNeighbour));
+      currentNode = (neighbourNodes.at(indexOfChosenNeighbour));
       currentPath->addNodeToPath(currentNode);
     }
     

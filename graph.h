@@ -57,6 +57,9 @@ public:
   void addEdge(const Node& from, const Node& to,realT distance);
   std::pair<mapT::const_iterator,mapT::const_iterator>
     getNeighbours(const Node* node)const;
+  std::vector<const Node*> getNeighboursVector(
+    std::pair<mapT::const_iterator,mapT::const_iterator> neighbours
+  )const;
   void showGraph()const;
   void showEdges()const;
   void showNodes()const;
