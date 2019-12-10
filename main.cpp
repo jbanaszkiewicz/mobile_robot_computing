@@ -3,11 +3,12 @@
 #include "psoPathSearch.h"
 #include <chrono>
 #include <cstdlib>
+#include <iostream>
 
 using namespace std::chrono;
 // TODO Kuba dokończyć konfigurację c++ wg https://code.visualstudio.com/docs/cpp/config-mingw 
 int main(int argc, char **argv) {
-  PsoTests::runTests();
+  // PsoTests::runTests();
 
   if (argc<1){   //COMPLETED get argv 
     printf("You haven't passed required arguments to the program.");
@@ -30,8 +31,9 @@ int main(int argc, char **argv) {
 
   auto stop = high_resolution_clock::now(); //COMPLETED: KUBA koniec czasu
   
-  auto duration = duration_cast<microseconds>(stop - start);  //COMPLETED: KUBA policz duration
-
+  auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
+  
+  std::cout<<duration<<std::endl<<cost_best_path<<std::endl;
 
   //TODO: statystyki
     // czas wyszukiwania search.findshortestpath

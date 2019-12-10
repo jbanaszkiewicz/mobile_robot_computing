@@ -17,8 +17,10 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
   sizeT numberOfParticles, sizeT maximumIterations = 500)const
 { 
   std::vector<Particle> particles = getParticles( numberOfParticles );
-
-  std::pair<Path,costT> bestSolution = std::pair<Path,costT>(); // g, gBest
+  // TODO sprawdzic dlaczego tylko jeden node w path
+  const auto firstParticle = particles.front();
+  const auto anySolution = std::pair<Path,costT>(firstParticle.currentPath, firstParticle.currentCost);
+  std::pair<Path,costT> bestSolution = getBestSolution(particles,anySolution ); // g, gBest
   //TODO: KUBA zwrownoleglic OpenMP
   // #pragma omp paralell for
   for(sizeT i = 0; i < maximumIterations; ++i)
