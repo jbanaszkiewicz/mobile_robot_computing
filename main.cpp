@@ -15,15 +15,20 @@ int main(int argc, char **argv) {
 
     return 0;
   }
+  float radiusOfNeighbourhood;
   int graphNrOfNodes = atoi(argv[1]);
   int nr_of_particles     = atoi(argv[2]);
   int nr_of_iterators     = atoi(argv[3]);
+  if(argc >=5)  radiusOfNeighbourhood = atof(argv[4]);
+  else          radiusOfNeighbourhood = 0.2;
+  
 
   // TODO: CO TO? Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
   
-  auto graph = GraphGenerator::getGraph(graphNrOfNodes, 2.0);
-  graph.saveToFile("./graphs/graph1");
-
+  auto graph = GraphGenerator::getGraph(graphNrOfNodes, radiusOfNeighbourhood);
+  // graph.saveToFile("./graphs/graph1", radiusOfNeighbourhood);
+  graph = Graph::getGraph("./graph/graph1");
+  graph.showGraph();
   // auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
   // auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu

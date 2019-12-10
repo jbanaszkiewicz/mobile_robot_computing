@@ -63,10 +63,10 @@ public:
   void showGraph()const;
   void showEdges()const;
   void showNodes()const;
-  void saveToFile(std::string filename)const;
+  void saveToFile(std::string filename, realT radiusOfNeighbourhood)const;
   std::vector<Node> getNodesFromFile(std::string filename)const;
-  void setNodes();
   friend class PsoTests;
+  static Graph getGraph(std::string filename);
 };
 
 #endif //GRAPH_H

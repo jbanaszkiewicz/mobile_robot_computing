@@ -91,12 +91,13 @@ void Graph::showEdges()const
   }
 }
 
-void Graph::saveToFile(std::string filename)const
+void Graph::saveToFile(std::string filename, realT radiusOfNeighbourhood)const
 {
   std::ofstream outputFile;
   realT currentX, currentY;
+  sizeT graphSize = nodes.size();
   outputFile.open(filename);
-
+  outputFile << graphSize << '\n'<<radiusOfNeighbourhood << '\n';
   for (size_t i = 0; i < this->nodes.size(); i++)
   {
     currentX = this->nodes.at(i).getPositionX();
@@ -107,7 +108,7 @@ void Graph::saveToFile(std::string filename)const
   outputFile.close();
 }
 
-Graph Graph::getGraph(std::string filename)const
+Graph Graph::getGraph(std::string filename)
 {
   std::vector<Node> nodesFromFile;
   std::pair<realT, realT> currentPosition;

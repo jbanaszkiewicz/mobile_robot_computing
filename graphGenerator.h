@@ -31,7 +31,7 @@ public:
   static const Node& getStart(const Graph & graph);
   static const Node& getDestination(const Graph & graph);
   static realT normSquered(const Node & a,const Node & b);
-  static Graph GraphGenerator::addEdges(Graph g,realT radiusOfNeighbourhood);
+  static Graph addEdges(Graph g,realT radiusOfNeighbourhood);
 
 };
 #endif //GRAPH_GENERATOR_H
