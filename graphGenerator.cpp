@@ -46,6 +46,13 @@ realT GraphGenerator::normSquered(const Node & a,const Node & b)
 Graph GraphGenerator::getGraph(
   sizeT numberOfNodes,realT radiusOfNeighbourhood, realT squereEdgeLength)
 {
+  auto graph = addNodes(numberOfNodes, squereEdgeLength);
+  return addEdges(graph,radiusOfNeighbourhood);
+  
+}
+
+Graph GraphGenerator::addNodes(sizeT numberOfNodes, realT squereEdgeLength)
+{
   Graph g(numberOfNodes);
   auto randomPoints = generatePoints(numberOfNodes,squereEdgeLength);
 
@@ -53,7 +60,10 @@ Graph GraphGenerator::getGraph(
   {
     g.addNode(p);
   }
-
+  return g;
+}
+Graph GraphGenerator::addEdges(Graph g,realT radiusOfNeighbourhood)
+{
   const auto & nodes = g.getNodes();
   auto radiusOfNeighbourhoodSquered = radiusOfNeighbourhood * radiusOfNeighbourhood;
 

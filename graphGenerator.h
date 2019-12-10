@@ -21,6 +21,8 @@ private:
   static realT getRandomPosition(realT maxValue);
   static std::vector<pointT>  generatePoints(
     sizeT numberOfNodes, realT squereEdgeLength);
+  static Graph addNodes(sizeT numberOfNodes, realT squereEdgeLength);
+
 public:
   GraphGenerator();
   ~GraphGenerator();
@@ -29,5 +31,7 @@ public:
   static const Node& getStart(const Graph & graph);
   static const Node& getDestination(const Graph & graph);
   static realT normSquered(const Node & a,const Node & b);
+  static Graph GraphGenerator::addEdges(Graph g,realT radiusOfNeighbourhood);
+
 };
 #endif //GRAPH_GENERATOR_H

@@ -10,31 +10,32 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   // PsoTests::runTests();
 
-  if (argc<1){   //COMPLETED get argv 
-    printf("You haven't passed required arguments to the program.");
+  if (argc<=1){   //COMPLETED get argv 
+    std::cout<<"You haven't passed required arguments to the program."<<std::endl;
 
-    return -1;
+    return 0;
   }
   int graphNrOfNodes = atoi(argv[1]);
   int nr_of_particles     = atoi(argv[2]);
   int nr_of_iterators     = atoi(argv[3]);
 
-    // TODO: CO TO? Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
+  // TODO: CO TO? Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
   
   auto graph = GraphGenerator::getGraph(graphNrOfNodes, 2.0);
-  auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
+  graph.saveToFile("./graphs/graph1");
 
-  auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
-  std::pair<Path,costT> bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);
-  Path best_path = bestSolution.first;
-  costT cost_best_path = bestSolution.second;
+  // auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
-  auto stop = high_resolution_clock::now(); //COMPLETED: KUBA koniec czasu
+  // auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
+  // std::pair<Path,costT> bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);
+  // Path best_path = bestSolution.first;
+  // costT cost_best_path = bestSolution.second;
+
+  // auto stop = high_resolution_clock::now(); //COMPLETED: KUBA koniec czasu
   
-  auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
+  // auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
   
-  std::cout<<duration<<std::endl<<cost_best_path<<std::endl;
-
+  // std::cout<<duration<<std::endl<<cost_best_path<<std::endl;
   //TODO: statystyki
     // czas wyszukiwania search.findshortestpath
     //ilosc nodów koncowej
