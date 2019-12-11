@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/a.out",
-            "args": ["500", "20", "500"],
+            "args": ["1", "20", "20", "1", "./graphs/graph1"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
