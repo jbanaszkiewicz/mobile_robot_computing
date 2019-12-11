@@ -4,7 +4,7 @@
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
-
+#include <omp.h>
 
 using namespace std::chrono;
 // TODO Kuba dokończyć konfigurację c++ wg https://code.visualstudio.com/docs/cpp/config-mingw 
@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
   auto graph = Graph(0);
   if(argc >=5)  nr_of_threads = atoi(argv[4]);
   else          nr_of_threads = 1;
+  omp_set_num_threads(nr_of_threads);
   if (!inputFromFile){
     int graphNrOfNodes = atoi(argv[5]);
     double radiusOfNeighbourhood = atof(argv[6]);
@@ -32,7 +33,7 @@ int main(int argc, char **argv) {
     graph.saveToFile("./graphs/graph2", radiusOfNeighbourhood);
   }
   else{
-     graph = Graph::getGraph(argv[5]);
+    graph = Graph::getGraph(argv[5]);
   }
   
     

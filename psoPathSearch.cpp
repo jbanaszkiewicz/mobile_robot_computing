@@ -17,7 +17,6 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
   sizeT numberOfParticles, sizeT maximumIterations = 500)
 { 
   std::vector<Particle> particles = getParticles( numberOfParticles );
-  // TODO sprawdzic dlaczego tylko jeden node w path
   const auto firstParticle = particles.front();
   const auto anySolution = std::pair<Path,costT>(firstParticle.currentPath, firstParticle.currentCost);
   std::pair<Path,costT> bestSolution = getBestSolution(particles,anySolution ); // g, gBest

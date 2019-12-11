@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <exception>
+#include <omp.h>
+#include "iostream"
 RandomPath::RandomPath(/* args */)
 {}
 
@@ -21,12 +23,12 @@ std::vector<Path> RandomPath::getRandomPaths(
   const Graph & graph, sizeT numberOfPaths,const Node& start,const Node& destination)
 {
   //TODO: KUBA zrownoleglic generowanie losowych sciezek KUBA
-  std::vector<Path> randomPaths;
+  std::vector<Path> randomPaths = std::vector<Path>(numberOfPaths);
   srand(time(NULL));
-  
-  //TODO: ALL dopilnować zarządzania oryginałami i kopiami węzłów
-  while (randomPaths.size() < numberOfPaths)
+  #pragma omp parallel for
+  for(int i =0;i < numberOfPaths;++i)
   {
+    std::cout << omp_get_thread_num() << " ";
     Path *currentPath;
     const Node* currentNode = &start;
     
@@ -78,8 +80,9 @@ std::vector<Path> RandomPath::getRandomPaths(
       currentPath->addNodeToPath(currentNode);
     }
     
-    randomPaths.push_back(*currentPath);
+    randomPaths[i] = *currentPath;
   }
+  std::cout << std::endl;
 
   return randomPaths;
 }
