@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
   
   auto graph = GraphGenerator::getGraph(graphNrOfNodes, radiusOfNeighbourhood);
   // graph.saveToFile("./graphs/graph1", radiusOfNeighbourhood);
-  graph = Graph::getGraph("./graph/graph1");
+  graph = Graph::getGraph("./graphs/graph1");
   graph.showGraph();
   // auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
