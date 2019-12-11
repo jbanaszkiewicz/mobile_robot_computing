@@ -116,6 +116,7 @@ Graph Graph::getGraph(std::string filename)
   realT radiusOfNeighbourhood;
   
   inputFile.open(filename);
+  
   sizeT nrNodes; 
   inputFile >> nrNodes;
   Graph graph = Graph(nrNodes);
