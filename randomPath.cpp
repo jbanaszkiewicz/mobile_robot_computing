@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
-
+#include <exception>
 RandomPath::RandomPath(/* args */)
 {}
 
@@ -56,16 +56,20 @@ std::vector<Path> RandomPath::getRandomPaths(
       if (neighbourNodes.size() == 0)
       {
         halfOfNeighbours = 0;
+        throw std::invalid_argument("Graph with no node around start node.");
       } else if (neighbourNodes.size() == 1)
       {
         halfOfNeighbours = 1;
+        indexOfChosenNeighbour=0;
       } else
       {
         halfOfNeighbours = (neighbourNodes.size() / 2);
+        indexOfChosenNeighbour = rand()%(halfOfNeighbours);
+
       }
       
       // Teraz muszę wylosować liczbę z zakresu od 0 do (halfOfNeighbours - 1)
-      indexOfChosenNeighbour = rand()%(halfOfNeighbours);
+
       
       // Ustawienie nowego aktualnego węzła i dodanie go do aktualnej ścieżki
       currentNode = (neighbourNodes.at(indexOfChosenNeighbour));
