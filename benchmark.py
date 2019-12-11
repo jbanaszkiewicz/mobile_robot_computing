@@ -1,11 +1,14 @@
 import subprocess
-
+#TODO minimum 3 grafy z rozna trudnoscia
 graph_paths = [
-  "./graphs/graph1"
+  "./graphs/graph2"
 ]
 nrs_of_iterations = [
+  100,
+  300,
   500
 ]
+#TODO sprawdzic z automatycznie dobierana liczna threadsow
 nrs_of_threads = [
   1,
   4,
@@ -16,7 +19,7 @@ nrs_of_threads = [
 for graph_path in graph_paths:
   for nr_of_iteration in nrs_of_iterations:
     for nr_of_threads in nrs_of_threads:
-      bashCommand = f"./main 100 100 {nr_of_iteration} 0.2 {graph_path} {nr_of_threads}"
+      bashCommand = f"./a.out 1 200 {nr_of_iteration} {nr_of_threads} {graph_path}"
       process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
       output, error = process.communicate()
       # print(str(output),error)

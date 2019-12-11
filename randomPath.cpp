@@ -28,7 +28,7 @@ std::vector<Path> RandomPath::getRandomPaths(
   #pragma omp parallel for
   for(int i =0;i < numberOfPaths;++i)
   {
-    std::cout << omp_get_thread_num() << " ";
+    // std::cout << omp_get_thread_num() << " ";
     Path *currentPath;
     const Node* currentNode = &start;
     
@@ -82,7 +82,7 @@ std::vector<Path> RandomPath::getRandomPaths(
     
     randomPaths[i] = *currentPath;
   }
-  std::cout << std::endl;
+  // std::cout << std::endl;
 
   return randomPaths;
 }
