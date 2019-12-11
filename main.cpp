@@ -21,26 +21,30 @@ int main(int argc, char **argv) {
   int nr_of_iterators     = atoi(argv[3]);
   if(argc >=5)  radiusOfNeighbourhood = atof(argv[4]);
   else          radiusOfNeighbourhood = 0.2;
+  int nr_of_threads;
+  if(argc >=6)  nr_of_threads = atoi(argv[5]);
+  else          nr_of_threads = 1;
   
 
   // TODO: CO TO? Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
   
-  auto graph = GraphGenerator::getGraph(graphNrOfNodes, radiusOfNeighbourhood);
+  // auto graph = GraphGenerator::getGraph(graphNrOfNodes, radiusOfNeighbourhood);
   // graph.saveToFile("./graphs/graph1", radiusOfNeighbourhood);
-  graph = Graph::getGraph("./graphs/graph1");
-  graph.showGraph();
+  auto graph = Graph::getGraph(argv[5]);
   // auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
-  // auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
+  auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
   // std::pair<Path,costT> bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);
   // Path best_path = bestSolution.first;
   // costT cost_best_path = bestSolution.second;
 
-  // auto stop = high_resolution_clock::now(); //COMPLETED: KUBA koniec czasu
+  auto stop = high_resolution_clock::now(); //COMPLETED: KUBA koniec czasu
   
-  // auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
+  auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
   
-  // std::cout<<duration<<std::endl<<cost_best_path<<std::endl;
+  std::cout<<duration<<std::endl
+  <<0.2 <<std::endl; // koszt sciezki
+
   //TODO: statystyki
     // czas wyszukiwania search.findshortestpath
     //ilosc nodów koncowej
@@ -48,6 +52,9 @@ int main(int argc, char **argv) {
     //wielkosc grafu -> ktory z zapisanych do pliku
     //nr_of_particles, nr_of_iterations
   
+  // nazwa grafu 
+  // całkowity czas 
+  // liczba wątków 
 
   //TODO: sprawdzic po ilu interacjach generowania sciezka wynikowa jest zawsze taka sama i tą ilość iteracji wybrać jako końcową  -> zadanie na pozniej
   //TODO: KUBA zrobić make projektu
