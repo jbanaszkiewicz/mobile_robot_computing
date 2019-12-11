@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   
   auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
   
-  std::cout<<duration<<std::endl<<0.2 <<std::endl; // koszt sciezki
+  std::cout<<duration<<std::endl<< cost_best_path<<std::endl; // koszt sciezki
 
   //TODO: statystyki
     // czas wyszukiwania search.findshortestpath

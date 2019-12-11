@@ -40,11 +40,13 @@ public:
   PsoPathSearch(const Graph & graph,const Node& start,const Node& destination);
   ~PsoPathSearch();
   std::pair<Path,costT> FindShortestPath(
-    sizeT numberOfPartiles, sizeT maximumIterations)const;
+    sizeT numberOfPartiles, sizeT maximumIterations);
 private:
   const Graph& graph;
   const Node& start;
   const Node& destination;
+
+  sizeT maxPathLenght;
 
   std::vector<Particle> getParticles(
     sizeT numberOfParticles)const;
@@ -59,6 +61,7 @@ private:
     const Node* globalBestPathNode,
     const Node* particelBestPathNode
     )const; 
+  sizeT getMaxPathLenght(const std::vector<Particle>& particles) const;
   friend class PsoTests;
 };
 

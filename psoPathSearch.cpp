@@ -14,13 +14,15 @@ PsoPathSearch::~PsoPathSearch()
 {}
 
 std::pair<Path,costT> PsoPathSearch::FindShortestPath(
-  sizeT numberOfParticles, sizeT maximumIterations = 500)const
+  sizeT numberOfParticles, sizeT maximumIterations = 500)
 { 
   std::vector<Particle> particles = getParticles( numberOfParticles );
   // TODO sprawdzic dlaczego tylko jeden node w path
   const auto firstParticle = particles.front();
   const auto anySolution = std::pair<Path,costT>(firstParticle.currentPath, firstParticle.currentCost);
   std::pair<Path,costT> bestSolution = getBestSolution(particles,anySolution ); // g, gBest
+
+  maxPathLenght = getMaxPathLenght(particles);
   //TODO: KUBA zwrownoleglic OpenMP
   // #pragma omp paralell for
   for(sizeT i = 0; i < maximumIterations; ++i)
@@ -51,15 +53,26 @@ std::vector<Particle> PsoPathSearch::getParticles(
 std::pair<Path,costT>  PsoPathSearch::getBestSolution(
   const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const
 {
-  auto bestParticle =  std::max_element(particles.begin(),particles.end(),[](Particle l, Particle r) { 
+  // https://en.cppreference.com/w/cpp/algorithm/min_element
+  auto bestParticle =  std::min_element(particles.begin(),particles.end(),
+    [](Particle l, Particle r) { 
         return l.bestCost < r.bestCost; 
     });
 
-  if (bestSolution.second >= bestParticle->bestCost)
+  if (bestSolution.second <= bestParticle->bestCost)
   {
     return bestSolution;
   } 
   return std::pair<Path,costT>(bestParticle->bestPath,bestParticle->bestCost);
+}
+
+sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) const
+{
+  auto particleWithLongestPath =  std::max_element(particles.begin(),particles.end(),
+    [](Particle l, Particle r) { 
+      return l.currentPath.nodes.size() < r.currentPath.nodes.size(); 
+  });
+  return particleWithLongestPath->currentPath.nodes.size();
 }
 
 std::vector<Particle> PsoPathSearch::updateParticles(
@@ -89,6 +102,11 @@ Path PsoPathSearch::getNextPath(
 
     newPath.nodes.push_back(current);
     ++i;
+    if(newPath.nodes.size() > maxPathLenght)
+    {
+      newPath = particle.currentPath;
+      break;
+    }
   }while (current != &destination);
   
   return newPath;
@@ -106,8 +124,8 @@ const Node* PsoPathSearch::getNeighbourClosestTo(
 
   for( auto i =  neighbours.first; i != neighbours.second; ++i)
   {
-    auto norm = GraphGenerator::normSquered(*(*closestNeighbour).second.first,*globalBestPathNode) 
-        + GraphGenerator::normSquered(*(*closestNeighbour).second.first,*particelBestPathNode);
+    auto norm = GraphGenerator::normSquered(*(*i).second.first,*globalBestPathNode) 
+        + GraphGenerator::normSquered(*(*i).second.first,*particelBestPathNode);
     if(norm < smallestNorm)
     {
       closestNeighbour = i;

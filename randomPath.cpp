@@ -22,16 +22,15 @@ std::vector<Path> RandomPath::getRandomPaths(
 {
   //TODO: KUBA zrownoleglic generowanie losowych sciezek KUBA
   std::vector<Path> randomPaths;
-  std::vector<const Node*> neighbourNodes;
-  Path *currentPath;
-  const Node* currentNode = &start;
-  int halfOfNeighbours = 0;
-  size_t indexOfChosenNeighbour = 0;
   srand(time(NULL));
   
   //TODO: ALL dopilnować zarządzania oryginałami i kopiami węzłów
   while (randomPaths.size() < numberOfPaths)
   {
+    Path *currentPath;
+    const Node* currentNode = &start;
+    
+    
     /* Sprawdzam, czy w wektorze mam tyle losowych ścieżek, ile jest wymagane.
       Jeśli nie, rozpoczynam tworzenie nowej losowej ścieżki, którą dodam do wektora. */
     currentPath = new Path();
@@ -39,6 +38,9 @@ std::vector<Path> RandomPath::getRandomPaths(
     
     while (currentNode != &destination)
     {
+      size_t indexOfChosenNeighbour = 0;
+      std::vector<const Node*> neighbourNodes;
+      int halfOfNeighbours = 0;
       neighbourNodes = graph.getNeighboursVector(graph.getNeighbours(currentNode));
       // Sytuacja wygląda tak: funkcja getNeighbours zwraca parę iteratorów
       // A chyba miało być tak, że w jakiś sposób dowiaduję się o wszystkich sąsiadach
