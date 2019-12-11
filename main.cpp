@@ -32,29 +32,23 @@ int main(int argc, char **argv) {
     graph.saveToFile("./graphs/graph2", radiusOfNeighbourhood);
   }
   else{
-     graph = Graph::getGraph(argv[5]
-     );
+     graph = Graph::getGraph(argv[5]);
   }
   
-  int a  =3 ;
+    
   
+  auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
-  // TODO: CO TO? Warunek tworzenia wezla to max odleglosc . implementacja to wczytanie nodow zamiast ich losowania
-  
-  // auto graph = GraphGenerator::getGraph(graphNrOfNodes, radiusOfNeighbourhood);
-  
-  // auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
+  auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
+  std::pair<Path,costT> bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);
+  Path best_path = bestSolution.first;
+  costT cost_best_path = bestSolution.second;
 
-  // auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
-  // std::pair<Path,costT> bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);
-  // // Path best_path = bestSolution.first;
-  // // costT cost_best_path = bestSolution.second;
-
-  // auto stop = high_resolution_clock::now(); //COMPLETED: KUBA koniec czasu
+  auto stop = high_resolution_clock::now(); //COMPLETED: KUBA koniec czasu
   
-  // auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
+  auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
   
-  // std::cout<<duration<<std::endl<<0.2 <<std::endl; // koszt sciezki
+  std::cout<<duration<<std::endl<<0.2 <<std::endl; // koszt sciezki
 
   //TODO: statystyki
     // czas wyszukiwania search.findshortestpath
