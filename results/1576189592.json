@@ -1,0 +1,402 @@
+[
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "945543",
+        "cost_best_path": "1.44588"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1021263",
+        "cost_best_path": "1.44706"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1066822",
+        "cost_best_path": "1.44844"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1034577",
+        "cost_best_path": "1.45021"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1162746",
+        "cost_best_path": "1.46224"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1050618",
+        "cost_best_path": "1.45429"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "990168",
+        "cost_best_path": "1.44599"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1023633",
+        "cost_best_path": "1.45373"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1148058",
+        "cost_best_path": "1.46073"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "985367",
+        "cost_best_path": "1.45334"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "979225",
+        "cost_best_path": "1.44376"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1062169",
+        "cost_best_path": "1.4688"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "967371",
+        "cost_best_path": "1.44446"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "916558",
+        "cost_best_path": "1.42621"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "993841",
+        "cost_best_path": "1.44825"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1083828",
+        "cost_best_path": "1.45044"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "903289",
+        "cost_best_path": "1.45899"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1028109",
+        "cost_best_path": "1.44225"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "926689",
+        "cost_best_path": "1.46163"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "889219",
+        "cost_best_path": "1.45111"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "942817",
+        "cost_best_path": "1.43768"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "858589",
+        "cost_best_path": "1.45808"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "928537",
+        "cost_best_path": "1.44089"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "954805",
+        "cost_best_path": "1.44487"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "934530",
+        "cost_best_path": "1.45629"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1431438",
+        "cost_best_path": "1.48962"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1055271",
+        "cost_best_path": "1.4505"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "941726",
+        "cost_best_path": "1.45216"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "910984",
+        "cost_best_path": "1.45216"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1053628",
+        "cost_best_path": "1.44465"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1047848",
+        "cost_best_path": "1.44502"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1197253",
+        "cost_best_path": "1.46604"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1021354",
+        "cost_best_path": "1.45396"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1011491",
+        "cost_best_path": "1.46264"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1116657",
+        "cost_best_path": "1.45894"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1039925",
+        "cost_best_path": "1.43934"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1179739",
+        "cost_best_path": "1.44258"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "917754",
+        "cost_best_path": "1.44277"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1235826",
+        "cost_best_path": "1.45968"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1061819",
+        "cost_best_path": "1.45306"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1024152",
+        "cost_best_path": "1.44284"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "899899",
+        "cost_best_path": "1.4254"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "954481",
+        "cost_best_path": "1.43332"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "998259",
+        "cost_best_path": "1.4511"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "976582",
+        "cost_best_path": "1.44216"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1070348",
+        "cost_best_path": "1.44472"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "983409",
+        "cost_best_path": "1.4494"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "893145",
+        "cost_best_path": "1.44907"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "973603",
+        "cost_best_path": "1.45565"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "994717",
+        "cost_best_path": "1.44711"
+    }
+]
