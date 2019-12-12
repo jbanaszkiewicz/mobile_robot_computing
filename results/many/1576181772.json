@@ -1,0 +1,10 @@
+[
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1192986",
+        "cost_best_path": "1.4673"
+    }
+]

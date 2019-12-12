@@ -220,6 +220,22 @@
         "graph": "graph2",
         "nr_of_iteration": 100,
         "nr_of_threads": 1,
+        "duration": "1130789",
+        "cost_best_path": "1.45918"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
+        "duration": "1000588",
+        "cost_best_path": "1.42869"
+    },
+    {
+        "name": "graph2_iters100_threads1",
+        "graph": "graph2",
+        "nr_of_iteration": 100,
+        "nr_of_threads": 1,
         "duration": "1143221",
         "cost_best_path": "1.44314"
     },

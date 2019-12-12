@@ -4,10 +4,7 @@ import os, sys
 import json
 #TODO minimum 3 grafy z rozna trudnoscia
 graph_paths = [
-  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2",
-  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2",
-  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2",
-  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2"
+  "graph2"
 ]
 nrs_of_iterations = [
   100
