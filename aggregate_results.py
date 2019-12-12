@@ -9,16 +9,6 @@ import statistics
 # args = parser.parse_args()
 # target_path = args.target_path
 target_path = "./results/many"
-list_files = [  '1576181776.json',
-                '1576181780.json',
-                '1576181779.json',
-                '1576181772.json',
-                '1576181782.json',
-                '1576181777.json',
-                '1576181775.json',
-                '1576181771.json',
-                '1576181770.json',
-                '1576181774.json']
 list_results = []
 for i in list_files:
     with open(f"{target_path}/{i}") as json_file:

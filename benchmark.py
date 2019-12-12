@@ -7,12 +7,28 @@ graph_paths = [
   "graph2"
 ]
 nrs_of_iterations = [
-  100
+  100 
+
 ]
-#TODO sprawdzic z automatycznie dobierana liczna threadsow
+
 nrs_of_threads = [
-  1
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,S
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 ]
+# nrs_of_threads = [
+#   1, 1, 1, 1, 1,
+#   2, 2, 2, 2, 2, 
+#   3, 3, 3, 3, 3,
+#   4, 4, 4, 4, 4,
+#   5, 5, 5, 5, 5, 
+#   6, 6, 6, 6, 6,
+#   7, 7, 7, 7, 7, 
+#   8, 8, 8, 8, 8
+# ]
+
 
 date_start = int(time())
 # try:
