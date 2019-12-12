@@ -35,14 +35,12 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 std::vector<Particle> PsoPathSearch::getParticles(
   sizeT numberOfParticles )const
 {
-  //TODO: KUBA to bedzie zwronoleglone
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
   
   #pragma omp parallel for
   for (sizeT i = 0; i < numberOfParticles; i++)
   {
-    //TODO: KUBA zrownoleglic przypisywanie OpenMP
     auto pathLength = randomPaths[i].getLength();
     particles[i] = Particle(randomPaths[i],pathLength);
   }
