@@ -5,12 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/a.out",
             // "args": ["1", "20", "20", "1", "./graphs/graph1"],
-            "args": ["1", "2", "2", "1", "./graphs/graph2"],
+            "args": [
+                "1",
+                "2",
+                "2",
+                "1",
+                "./graphs/graph2"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

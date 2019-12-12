@@ -4,16 +4,17 @@ import os, sys
 import json
 #TODO minimum 3 grafy z rozna trudnoscia
 graph_paths = [
-  "graph2"
+  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2",
+  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2",
+  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2",
+  "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2", "graph2",  "graph2", "graph2", "graph2", "graph2", "graph2"
 ]
 nrs_of_iterations = [
-  100,
-  300,
+  100
 ]
 #TODO sprawdzic z automatycznie dobierana liczna threadsow
 nrs_of_threads = [
-  1,
-  4,
+  1
 ]
 
 date_start = int(time())
