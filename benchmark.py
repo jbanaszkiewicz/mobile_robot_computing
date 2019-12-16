@@ -4,11 +4,10 @@ import os, sys
 import json
 #TODO minimum 3 grafy z rozna trudnoscia
 graph_paths = [
-  "graph2"
+  "graph5000"
 ]
 nrs_of_iterations = [
-  20 
-
+  1000 
 ]
 
 # nrs_of_threads = [

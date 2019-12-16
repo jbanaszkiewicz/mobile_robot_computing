@@ -1,0 +1,322 @@
+[
+    {
+        "name": "graph1000_iters1000_threads1",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 1,
+        "duration": "15950925",
+        "cost_best_path": "1.45812"
+    },
+    {
+        "name": "graph1000_iters1000_threads1",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 1,
+        "duration": "18055770",
+        "cost_best_path": "1.43036"
+    },
+    {
+        "name": "graph1000_iters1000_threads1",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 1,
+        "duration": "16606218",
+        "cost_best_path": "1.4586"
+    },
+    {
+        "name": "graph1000_iters1000_threads1",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 1,
+        "duration": "20740131",
+        "cost_best_path": "1.4991"
+    },
+    {
+        "name": "graph1000_iters1000_threads1",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 1,
+        "duration": "19980956",
+        "cost_best_path": "1.44679"
+    },
+    {
+        "name": "graph1000_iters1000_threads2",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 2,
+        "duration": "8416499",
+        "cost_best_path": "1.43072"
+    },
+    {
+        "name": "graph1000_iters1000_threads2",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 2,
+        "duration": "8540534",
+        "cost_best_path": "1.44822"
+    },
+    {
+        "name": "graph1000_iters1000_threads2",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 2,
+        "duration": "9890543",
+        "cost_best_path": "1.45656"
+    },
+    {
+        "name": "graph1000_iters1000_threads2",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 2,
+        "duration": "7451425",
+        "cost_best_path": "1.4316"
+    },
+    {
+        "name": "graph1000_iters1000_threads2",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 2,
+        "duration": "8600035",
+        "cost_best_path": "1.42906"
+    },
+    {
+        "name": "graph1000_iters1000_threads3",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 3,
+        "duration": "6531411",
+        "cost_best_path": "1.44448"
+    },
+    {
+        "name": "graph1000_iters1000_threads3",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 3,
+        "duration": "5982557",
+        "cost_best_path": "1.44555"
+    },
+    {
+        "name": "graph1000_iters1000_threads3",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 3,
+        "duration": "7063678",
+        "cost_best_path": "1.44494"
+    },
+    {
+        "name": "graph1000_iters1000_threads3",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 3,
+        "duration": "5698571",
+        "cost_best_path": "1.43798"
+    },
+    {
+        "name": "graph1000_iters1000_threads3",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 3,
+        "duration": "6681433",
+        "cost_best_path": "1.42816"
+    },
+    {
+        "name": "graph1000_iters1000_threads4",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 4,
+        "duration": "5041817",
+        "cost_best_path": "1.46969"
+    },
+    {
+        "name": "graph1000_iters1000_threads4",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 4,
+        "duration": "5241802",
+        "cost_best_path": "1.44331"
+    },
+    {
+        "name": "graph1000_iters1000_threads4",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 4,
+        "duration": "4849318",
+        "cost_best_path": "1.42886"
+    },
+    {
+        "name": "graph1000_iters1000_threads4",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 4,
+        "duration": "4739926",
+        "cost_best_path": "1.42903"
+    },
+    {
+        "name": "graph1000_iters1000_threads4",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 4,
+        "duration": "6490849",
+        "cost_best_path": "1.45123"
+    },
+    {
+        "name": "graph1000_iters1000_threads5",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 5,
+        "duration": "5545136",
+        "cost_best_path": "1.43244"
+    },
+    {
+        "name": "graph1000_iters1000_threads5",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 5,
+        "duration": "5088785",
+        "cost_best_path": "1.4309"
+    },
+    {
+        "name": "graph1000_iters1000_threads5",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 5,
+        "duration": "5415619",
+        "cost_best_path": "1.44826"
+    },
+    {
+        "name": "graph1000_iters1000_threads5",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 5,
+        "duration": "5649170",
+        "cost_best_path": "1.43869"
+    },
+    {
+        "name": "graph1000_iters1000_threads5",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 5,
+        "duration": "5376734",
+        "cost_best_path": "1.43788"
+    },
+    {
+        "name": "graph1000_iters1000_threads6",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 6,
+        "duration": "4603111",
+        "cost_best_path": "1.43366"
+    },
+    {
+        "name": "graph1000_iters1000_threads6",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 6,
+        "duration": "5575297",
+        "cost_best_path": "1.43844"
+    },
+    {
+        "name": "graph1000_iters1000_threads6",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 6,
+        "duration": "6178207",
+        "cost_best_path": "1.44713"
+    },
+    {
+        "name": "graph1000_iters1000_threads6",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 6,
+        "duration": "4205126",
+        "cost_best_path": "1.44232"
+    },
+    {
+        "name": "graph1000_iters1000_threads6",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 6,
+        "duration": "7652924",
+        "cost_best_path": "1.45123"
+    },
+    {
+        "name": "graph1000_iters1000_threads7",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 7,
+        "duration": "14396704",
+        "cost_best_path": "1.43723"
+    },
+    {
+        "name": "graph1000_iters1000_threads7",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 7,
+        "duration": "6759525",
+        "cost_best_path": "1.43359"
+    },
+    {
+        "name": "graph1000_iters1000_threads7",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 7,
+        "duration": "5157386",
+        "cost_best_path": "1.43917"
+    },
+    {
+        "name": "graph1000_iters1000_threads7",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 7,
+        "duration": "5542558",
+        "cost_best_path": "1.43039"
+    },
+    {
+        "name": "graph1000_iters1000_threads7",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 7,
+        "duration": "5108159",
+        "cost_best_path": "1.45637"
+    },
+    {
+        "name": "graph1000_iters1000_threads8",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 8,
+        "duration": "5582062",
+        "cost_best_path": "1.43645"
+    },
+    {
+        "name": "graph1000_iters1000_threads8",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 8,
+        "duration": "6100724",
+        "cost_best_path": "1.42507"
+    },
+    {
+        "name": "graph1000_iters1000_threads8",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 8,
+        "duration": "4315557",
+        "cost_best_path": "1.44895"
+    },
+    {
+        "name": "graph1000_iters1000_threads8",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 8,
+        "duration": "5002121",
+        "cost_best_path": "1.45914"
+    },
+    {
+        "name": "graph1000_iters1000_threads8",
+        "graph": "graph1000",
+        "nr_of_iteration": 1000,
+        "nr_of_threads": 8,
+        "duration": "5861386",
+        "cost_best_path": "1.45796"
+    }
+]
