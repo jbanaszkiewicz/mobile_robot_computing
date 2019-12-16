@@ -2,7 +2,8 @@ import subprocess
 from time import time
 import os, sys
 import json
-#TODO minimum 3 grafy z rozna trudnoscia
+from tqdm import tqdm
+
 graph_paths = [
   "graph5000"
 ]
@@ -35,9 +36,9 @@ date_start = int(time())
 # except:
 #     os.mkdir(f"./results/{date_start}") 
 data = []
-for graph_path in graph_paths: 
-  for nr_of_iteration in nrs_of_iterations:
-    for nr_of_threads in nrs_of_threads:
+for graph_path in  tqdm(graph_paths, desc='graphs_progress'): 
+  for nr_of_iteration in tqdm(nrs_of_iterations, desc='iterrs_progress'):
+    for nr_of_threads in tqdm(nrs_of_threads, desc='threads_progress'):
       bashCommand = f"./a.out 1 200 {nr_of_iteration} {nr_of_threads} ./graphs/{graph_path}"
       process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
       output, error = process.communicate()
