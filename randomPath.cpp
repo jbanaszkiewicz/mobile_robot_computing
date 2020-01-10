@@ -28,21 +28,18 @@ std::vector<Path> RandomPath::getRandomPaths(
   // #pragma omp parallel for
   for(int i =0;i < numberOfPaths;++i)
   {
-    Path *currentPath;
+    Path currentPath = Path();;
     const Node* currentNode = &start;
     
     
     /* Sprawdzam, czy w wektorze mam tyle losowych ścieżek, ile jest wymagane.
       Jeśli nie, rozpoczynam tworzenie nowej losowej ścieżki, którą dodam do wektora. */
-    currentPath = new Path();
-    currentPath->addNodeToPath(&start);
+    currentPath.addNodeToPath(&start);
     
     while (currentNode != &destination)
     {
       size_t indexOfChosenNeighbour = 0;
-      std::vector<const Node*> neighbourNodes;
-      int halfOfNeighbours = 0;
-      neighbourNodes = graph.getNeighboursVector(graph.getNeighbours(currentNode));
+      std::vector<const Node*> neighbourNodes = graph.getNeighboursVector(graph.getNeighbours(currentNode));
       // Sytuacja wygląda tak: funkcja getNeighbours zwraca parę iteratorów
       // A chyba miało być tak, że w jakiś sposób dowiaduję się o wszystkich sąsiadach
       // I to z nich wybieram lepszą połowę
@@ -58,15 +55,13 @@ std::vector<Path> RandomPath::getRandomPaths(
       // Ustalam liczbę odpowiadającą połowie sąsiadów
       if (neighbourNodes.size() == 0)
       {
-        halfOfNeighbours = 0;
         throw std::invalid_argument("Graph with no node around start node.");
       } else if (neighbourNodes.size() == 1)
       {
-        halfOfNeighbours = 1;
         indexOfChosenNeighbour=0;
       } else
       {
-        halfOfNeighbours = (neighbourNodes.size() / 2);
+        int halfOfNeighbours = (neighbourNodes.size() / 2);
         indexOfChosenNeighbour = rand()%(halfOfNeighbours);
 
       }
@@ -75,11 +70,11 @@ std::vector<Path> RandomPath::getRandomPaths(
 
       
       // Ustawienie nowego aktualnego węzła i dodanie go do aktualnej ścieżki
-      currentNode = (neighbourNodes.at(indexOfChosenNeighbour));
-      currentPath->addNodeToPath(currentNode);
+      currentNode = neighbourNodes[indexOfChosenNeighbour];
+      currentPath.addNodeToPath(currentNode);
     }
     
-    randomPaths[i] = *currentPath;
+    randomPaths[i] = currentPath;
   }
   // std::cout << std::endl;
 

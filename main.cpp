@@ -4,36 +4,38 @@
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
+#include "mpi.h"
 
 using namespace std::chrono;
-// TODO Kuba dokończyć konfigurację c++ wg https://code.visualstudio.com/docs/cpp/config-mingw 
+
 int main(int argc, char **argv) {
-  // PsoTests::runTests();
+  MPI_Init(&argc, &argv);
 
-  if (argc<=1){   //COMPLETED get argv 
-    std::cout<<"You haven't passed required arguments to the program."<<std::endl;
+  int nr_of_particles = 2; 
+  // std::cin >> nr_of_particles;
+  int nr_of_iterators = 2;
+  // std::cin >> nr_of_iterators;
 
-    return 0;
-  }
-  float radiusOfNeighbourhood;
-  bool inputFromFile = atoi(argv[1]);
-  int nr_of_particles     = atoi(argv[2]);
-  int nr_of_iterators     = atoi(argv[3]);
-  int nr_of_threads;
+  bool inputFromFile = true;
+  // std::cin >> inputFromFile;
+
   auto graph = Graph(0);
-
   if (!inputFromFile){
-    int graphNrOfNodes = atoi(argv[5]);
-    double radiusOfNeighbourhood = atof(argv[6]);
+    double radiusOfNeighbourhood = 2;
+    int graphNrOfNodes = 4;
+    // std::cin >> graphNrOfNodes;
+    // std::cin >> radiusOfNeighbourhood;
     graph = GraphGenerator::getGraph(graphNrOfNodes, radiusOfNeighbourhood);
-    // auto duration = duration_cast<microseconds>(stop - start).count()
     graph.saveToFile("./graphs/graph2", radiusOfNeighbourhood);
   }
   else{
-    graph = Graph::getGraph(argv[5]);
+    std::string graphPath   = "./graphs/graph1000";
+    // std::cin >> graphPath;
+    graph = Graph::getGraph(graphPath);
   }
-  
-    
+
+  graph.showGraph();
+
   
   auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
@@ -47,19 +49,6 @@ int main(int argc, char **argv) {
   auto duration = duration_cast<microseconds>(stop - start).count();  //COMPLETED: KUBA policz duration
   
   std::cout<<duration<<std::endl<< cost_best_path<<std::endl; // koszt sciezki
-
-  //TODO: statystyki
-    // czas wyszukiwania search.findshortestpath
-    //ilosc nodów koncowej
-    //dlugosc sciezki konsowej
-    //wielkosc grafu -> ktory z zapisanych do pliku
-    //nr_of_particles, nr_of_iterations
-  
-  // nazwa grafu 
-  // całkowity czas 
-  // liczba wątków 
-
-  //TODO: sprawdzic po ilu interacjach generowania sciezka wynikowa jest zawsze taka sama i tą ilość iteracji wybrać jako końcową  -> zadanie na pozniej
-  //TODO: KUBA zrobić make projektu
+  MPI_Finalize();
   return 0;
 }
