@@ -25,10 +25,9 @@ std::vector<Path> RandomPath::getRandomPaths(
   //TODO: KUBA zrownoleglic generowanie losowych sciezek KUBA
   std::vector<Path> randomPaths = std::vector<Path>(numberOfPaths);
   srand(time(NULL));
-  #pragma omp parallel for
+  // #pragma omp parallel for
   for(int i =0;i < numberOfPaths;++i)
   {
-    // std::cout << omp_get_thread_num() << " ";
     Path *currentPath;
     const Node* currentNode = &start;
     

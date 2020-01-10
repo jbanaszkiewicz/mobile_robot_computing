@@ -2,9 +2,15 @@
 The project tests parallel and distributed computing. We implement them on Particle Swarm Optimization. The algorithm is used to choose optimum path.
 
 ## Budowanie programu algorytmu
-W celu zbudowania projektu należy wywołać komendę:
+W celu zbudowania projektu należy zainstalować wrapper na kompilator.
 ```sh
-g++  -g -fopenmp graphGenerator.cpp graph.cpp path.cpp psoPathSearch.cpp psoTests.cpp randomPath.cpp main.cpp
+sudo apt install lam4-dev      
+sudo apt install libmpich-dev  
+sudo apt install libopenmpi-dev
+```
+Budowanie projektu odbywa się przez wywołanie komendy:
+```sh
+mpic++  -g  graphGenerator.cpp graph.cpp path.cpp psoPathSearch.cpp psoTests.cpp randomPath.cpp main.cpp
 ```
 Utworzy ona plik wykonywalny ./o.out
 Plik ten pzyjmuje następujące argumenty:
