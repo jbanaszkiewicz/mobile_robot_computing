@@ -82,7 +82,7 @@ void PsoTests::testUpdateParticle()
   bestSolutionNodes.push_back(&GraphGenerator::getStart(graph));
   bestSolutionNodes.push_back(&GraphGenerator::getDestination(graph));
   bestPath.nodes = bestSolutionNodes;
-  auto bestSolution = std::pair<Path,costT>(bestPath, 0);
+  auto bestSolution = solutionT(bestPath, 0);
   
   auto path = search.getNextPath(particle, bestSolution);
 

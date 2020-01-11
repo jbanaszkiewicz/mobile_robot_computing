@@ -5,10 +5,8 @@ The project tests parallel and distributed computing. We implement them on Parti
 W celu zbudowania projektu należy zainstalować wrapper na kompilator.
 https://www.open-mpi.org/faq/?category=mpi-apps
 ```sh
-sudo apt install openmpi-bin
 sudo apt install lam4-dev      
 sudo apt install libmpich-dev  
-sudo apt install libopenmpi-dev
 ```
 Budowanie projektu odbywa się przez wywołanie komendy. https://www.open-mpi.org/faq/?category=running
 ```sh

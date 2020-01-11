@@ -4,7 +4,7 @@
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
-#include "mpi.h"
+#include <mpi.h>
 
 using namespace std::chrono;
 
@@ -33,14 +33,11 @@ int main(int argc, char **argv) {
     // std::cin >> graphPath;
     graph = Graph::getGraph(graphPath);
   }
-
-  graph.showGraph();
-
   
   auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
   auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
-  std::pair<Path,costT> bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);
+  solutionT bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);
   Path best_path = bestSolution.first;
   costT cost_best_path = bestSolution.second;
 

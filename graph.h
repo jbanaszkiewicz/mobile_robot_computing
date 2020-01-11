@@ -67,6 +67,10 @@ public:
   std::vector<Node> getNodesFromFile(std::string filename)const;
   friend class PsoTests;
   static Graph getGraph(std::string filename);
+
+  std::vector<sizeT> getNodeIndexesFromPath(const Path& path)const;
+  Path getPathFromNodeIndexes(const std::vector<sizeT>& indexes)const;
+  sizeT getNodeIndex(const Node * n)const;
 };
 
 #endif //GRAPH_H

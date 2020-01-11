@@ -1,13 +1,15 @@
+#include <cstdlib>
+#include <ctime>
+#include <exception>
+#include <algorithm>
+#include <mpi.h>
+#include <iostream>
+
 #include "randomPath.h"
 #include "path.h"
 #include "graph.h"
 #include "graphGenerator.h"
-#include <algorithm>
-#include <cstdlib>
-#include <ctime>
-#include <exception>
-#include <omp.h>
-#include "iostream"
+
 RandomPath::RandomPath(/* args */)
 {}
 
@@ -19,16 +21,22 @@ bool compareNeighbours(const Node& node1,const Node& node2, const Node& destinat
   return (GraphGenerator::normSquered(node1, destination) < GraphGenerator::normSquered(node2, destination));
 }
 
+/*
+  Ta funkcja jest zrównoleglona ponieważ każdy proces generuje swój zestaw ścieżek.
+  Zadbajmy o różne pseudo losowe ścieżki dla każdego procesu.
+*/
 std::vector<Path> RandomPath::getRandomPaths(
   const Graph & graph, sizeT numberOfPaths,const Node& start,const Node& destination)
 {
   //TODO: KUBA zrownoleglic generowanie losowych sciezek KUBA
   std::vector<Path> randomPaths = std::vector<Path>(numberOfPaths);
-  srand(time(NULL));
-  // #pragma omp parallel for
+  int world_rank;
+  MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+  srand(world_rank);
+  // std::cout << "my (rand, rank) "<<rand()<<" "<<world_rank << std::endl; 
   for(int i =0;i < numberOfPaths;++i)
   {
-    Path currentPath = Path();;
+    Path currentPath = Path();
     const Node* currentNode = &start;
     
     

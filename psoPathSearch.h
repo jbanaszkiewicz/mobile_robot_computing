@@ -7,6 +7,7 @@
 
 using costT = realT;
 using sizeT = size_t;
+using solutionT = std::pair<Path,costT>;
 
 class Particle
 {  
@@ -39,7 +40,7 @@ class PsoPathSearch
 public:
   PsoPathSearch(const Graph & graph,const Node& start,const Node& destination);
   ~PsoPathSearch();
-  std::pair<Path,costT> FindShortestPath(
+  solutionT FindShortestPath(
     sizeT numberOfPartiles, sizeT maximumIterations);
 private:
   const Graph& graph;
@@ -48,14 +49,16 @@ private:
 
   sizeT maxPathLenght;
 
+  const static int SERVER_HOST = 0;
+
   std::vector<Particle> getParticles(
     sizeT numberOfParticles)const;
-  std::pair<Path,costT> getBestSolution(
-    const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const;
+  solutionT getBestSolution(
+    const std::vector<Particle> & particles,solutionT bestSolution)const;
   std::vector<Particle> updateParticles(
-    std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const;
+    std::vector<Particle>& particles,const solutionT& bestSolution)const;
   Path getNextPath(
-    const Particle& particle,const std::pair<Path,costT>& bestSolution)const;
+    const Particle& particle,const solutionT& bestSolution)const;
   const Node* getNeighbourClosestTo(
     std::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
     const Node* globalBestPathNode,
@@ -63,6 +66,16 @@ private:
     )const; 
   sizeT getMaxPathLenght(const std::vector<Particle>& particles) const;
   friend class PsoTests;
+
+  solutionT getBestSolutionMPI(
+    solutionT bestSolution)const;
+  solutionT bestSolutionServer(
+    solutionT bestSolution)const;
+  solutionT bestSolutionClient(
+    solutionT bestSolution)const;
+  void sendPathTo(const Path & path, int host)const;
+  Path receivePathFrom(int host)const;
+  void broadcastPathAs(const Path & path, int host)const;
 };
 
 #endif // PSO_PATH_SEARCH

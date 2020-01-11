@@ -1,4 +1,5 @@
 #include <algorithm> // std::max_element
+#include <mpi.h>
 #include "psoPathSearch.h"
 #include "randomPath.h"
 #include "graphGenerator.h"
@@ -12,13 +13,17 @@ destination(destination)
 PsoPathSearch::~PsoPathSearch()
 {}
 
-std::pair<Path,costT> PsoPathSearch::FindShortestPath(
+/*  Zrównoleglenie o jeden posiom wyżej.
+    Uzyskujemy grubsze ziarno.
+    Zmniejszenie nakładu na komunikacje.
+*/
+solutionT PsoPathSearch::FindShortestPath(
   sizeT numberOfParticles, sizeT maximumIterations = 500)
 { 
   std::vector<Particle> particles = getParticles( numberOfParticles );
   const auto firstParticle = particles.front();
-  const auto anySolution = std::pair<Path,costT>(firstParticle.currentPath, firstParticle.currentCost);
-  std::pair<Path,costT> bestSolution = getBestSolution(particles,anySolution ); // g, gBest
+  const auto anySolution = solutionT(firstParticle.currentPath, firstParticle.currentCost);
+  solutionT bestSolution = getBestSolution(particles,anySolution ); // g, gBest
 
   maxPathLenght = getMaxPathLenght(particles);
 
@@ -26,6 +31,7 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
   {
     particles = updateParticles(particles, bestSolution);
     bestSolution = getBestSolution(particles,bestSolution);
+    bestSolution = getBestSolutionMPI(bestSolution); 
   }
 
   return bestSolution;
@@ -37,7 +43,7 @@ std::vector<Particle> PsoPathSearch::getParticles(
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
   
-  // #pragma omp parallel for
+  // zrównoleglenie poziom wyżej, patrz
   for (sizeT i = 0; i < numberOfParticles; i++)
   {
     auto pathLength = randomPaths[i].getLength();
@@ -46,8 +52,8 @@ std::vector<Particle> PsoPathSearch::getParticles(
   return particles;
 }
 
-std::pair<Path,costT>  PsoPathSearch::getBestSolution(
-  const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const
+solutionT  PsoPathSearch::getBestSolution(
+  const std::vector<Particle> & particles,solutionT bestSolution)const
 {
   // https://en.cppreference.com/w/cpp/algorithm/min_element
   auto bestParticle =  std::min_element(particles.begin(),particles.end(),
@@ -59,7 +65,7 @@ std::pair<Path,costT>  PsoPathSearch::getBestSolution(
   {
     return bestSolution;
   } 
-  return std::pair<Path,costT>(bestParticle->bestPath,bestParticle->bestCost);
+  return solutionT(bestParticle->bestPath,bestParticle->bestCost);
 }
 
 sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) const
@@ -72,9 +78,9 @@ sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) co
 }
 
 std::vector<Particle> PsoPathSearch::updateParticles(
-  std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const
+  std::vector<Particle>& particles,const solutionT& bestSolution)const
 {
-  // #pragma omp parallel for
+  // zrównoleglenie poziom wyżej, patrz
   for(size_t i = 0; i < particles.size();++i)
   {
     const auto newPath = getNextPath(particles[i],bestSolution);
@@ -84,7 +90,7 @@ std::vector<Particle> PsoPathSearch::updateParticles(
 }
 
 Path PsoPathSearch::getNextPath(
-  const Particle& particle,const std::pair<Path,costT>& bestSolution)const
+  const Particle& particle,const solutionT& bestSolution)const
 {
   Path newPath = Path();
   
@@ -141,4 +147,88 @@ void Particle::setPath(const Path& path)
     bestCost = currentCost;
     bestPath = currentPath;
   }
+}
+/* MPI */
+// Zdecyduj jaką rolę ma pełnić proces w MPI
+solutionT  PsoPathSearch::getBestSolutionMPI(
+  solutionT bestSolution)const
+{
+  int world_rank;
+  MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+  if(world_rank == SERVER_HOST)
+  {
+    bestSolution = bestSolutionServer(bestSolution);
+  }else
+  {
+    bestSolution = bestSolutionClient(bestSolution);
+  }
+  return bestSolution;
+}
+
+// 1. Odbierz najlepsze rozwiązania od wszystkich procesów
+// 2. Wybierz najlepsze z pośród nich
+// 3. Roześlij najlepsze rozwiązanie
+solutionT PsoPathSearch::bestSolutionServer(
+  solutionT bestSolution)const
+{
+  int world_size;
+  MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+  auto solutions = std::vector<solutionT>(world_size);
+  solutions[0] = bestSolution;
+  // 0 to my więc nie odbieramy od siebie
+  for (int i = 1; i < world_size; ++i)
+  {
+    auto path = receivePathFrom(i);
+    solutions[i] = solutionT(path, path.getLength());
+  }
+
+  bestSolution =  *std::min_element(solutions.begin(),solutions.end(),
+    [](solutionT l, solutionT r) { 
+      return l.second < r.second; 
+  });
+
+
+  broadcastPathAs(bestSolution.first,SERVER_HOST);
+  return bestSolution;
+}
+
+// 1. Wyślij swoje rozwiązanie do Servera
+// 2. Zaczekaj na najlepsze od Servera
+// 3. Zapisz najlepjsze rozwiązanie od Servera
+solutionT PsoPathSearch::bestSolutionClient(
+  solutionT bestSolution)const
+{
+  sendPathTo(bestSolution.first,SERVER_HOST);
+  auto path = receivePathFrom(SERVER_HOST);
+  return solutionT(path, path.getLength());
+}
+
+void PsoPathSearch::sendPathTo(const Path & path, int host)const
+{
+  sizeT newBestPathSize;
+  MPI_Send(&newBestPathSize, 1, MPI_UNSIGNED_LONG, host, 0, MPI_COMM_WORLD);
+
+  auto pathIndexes = graph.getNodeIndexesFromPath(path);
+  MPI_Send(pathIndexes.data(), pathIndexes.size(), MPI_UNSIGNED_LONG,host,0,MPI_COMM_WORLD);
+}
+
+Path PsoPathSearch::receivePathFrom(int host)const
+{
+  sizeT newBestPathSize;
+  MPI_Recv(&newBestPathSize, 1, MPI_UNSIGNED_LONG, host, 0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+  auto newBestPathIndexes = std::vector<sizeT>(newBestPathSize);
+  MPI_Recv(newBestPathIndexes.data(), newBestPathSize, MPI_UNSIGNED_LONG, host, 0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+  return graph.getPathFromNodeIndexes(newBestPathIndexes);
+}
+
+void PsoPathSearch::broadcastPathAs(const Path & path, int host)const
+{
+  sizeT newBestPathSize;
+  MPI_Bcast(&newBestPathSize, 1, MPI_UNSIGNED_LONG, host, MPI_COMM_WORLD);
+
+  auto pathIndexes = graph.getNodeIndexesFromPath(path);
+  MPI_Bcast(pathIndexes.data(), pathIndexes.size(), MPI_UNSIGNED_LONG,host,MPI_COMM_WORLD);
 }

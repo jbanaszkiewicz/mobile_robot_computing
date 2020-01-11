@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "graphGenerator.h"
+#include "path.h"
 
 realT Node::getPositionX()const
 {
@@ -132,3 +133,31 @@ Graph Graph::getGraph(std::string filename)
   return graph;
 }
 
+
+std::vector<sizeT> Graph::getNodeIndexesFromPath(const Path& path)const
+{
+  auto indexes = std::vector<sizeT>();
+  indexes.reserve(path.nodes.size());
+
+  for(const auto n : path.nodes)
+  {
+    indexes.push_back(getNodeIndex(n));
+  }
+
+  return indexes;
+}
+
+sizeT Graph::getNodeIndex(const Node * n)const
+{
+  return n - nodes.data();
+}
+
+Path Graph::getPathFromNodeIndexes(const std::vector<sizeT>& indexes)const
+{
+  auto path = Path();
+  for(const auto i : indexes)
+  {
+    path.addNodeToPath(&nodes[i]);
+  }
+  return path;
+}
