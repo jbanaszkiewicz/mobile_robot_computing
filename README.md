@@ -21,11 +21,11 @@ lamboot
 A następnie uruchomić program jedną z komend.
 Jeden proces:
 ```sh
-mpirun -np 1 a.out
+mpirun -np 2 ./a.out
 ```
 Cztery procesy:
 ```sh
-mpirun -np 4 a.out
+mpirun -np 4 ./a.out
 ```
 <!-- 
 Plik ten pzyjmuje następujące argumenty:
