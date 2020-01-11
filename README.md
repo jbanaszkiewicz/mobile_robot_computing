@@ -39,6 +39,8 @@ Plik ten pzyjmuje następujące argumenty:
 ## Testowanie działania algorytmu
 Stworzono również plik benchmark.py. Można za jego pomocą uruchomić program wielokrotnie i sprawdzić efekt działania zrównoleglania obliczeń.
 Zwraca on plik json z wynikami obliczeń i przyjętmi dla poszczególnych przypadków danymi wejściowymi.
-
+```sh
+python3 benchmark.py
+```
 ## Przetwarzanie danych.
 Dane statystyczne otrzymane z pliku benchmark.py sa przetwarzane z wykorzystaniem pliku aggregate_results.py

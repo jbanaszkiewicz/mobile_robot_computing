@@ -5,10 +5,10 @@ import json
 from tqdm import tqdm
 
 graph_paths = [
-  "graph5000"
+  "graph1000"
 ]
 nrs_of_iterations = [
-  1000 
+  5
 ]
 
 # nrs_of_threads = [
@@ -39,7 +39,7 @@ data = []
 for graph_path in  tqdm(graph_paths, desc='graphs_progress'): 
   for nr_of_iteration in tqdm(nrs_of_iterations, desc='iterrs_progress'):
     for nr_of_threads in tqdm(nrs_of_threads, desc='threads_progress'):
-      bashCommand = f"./a.out 1 200 {nr_of_iteration} {nr_of_threads} ./graphs/{graph_path}"
+      bashCommand = f" mpirun -np {nr_of_threads} ./a.out 1 200 {nr_of_iteration} ./graphs/{graph_path}"
       process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
       output, error = process.communicate()
       # print(str(output),error)

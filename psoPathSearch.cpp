@@ -156,7 +156,7 @@ solutionT  PsoPathSearch::getBestSolutionMPI(
 {
   int world_rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-  std::cout << "world_rank:"<<world_rank << std::endl;
+  //std::cout << "world_rank:"<<world_rank << std::endl;
   if(world_rank == SERVER_HOST)
   {
     bestSolution = bestSolutionServer(bestSolution);
@@ -220,7 +220,7 @@ void PsoPathSearch::sendPathTo(const Path & path, int host)const
 
   int world_rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-  std::cout << "world_rank:"<<world_rank << " "<< "path size send:"<<newBestPathSize << std::endl;
+  //std::cout << "world_rank:"<<world_rank << " "<< "path size send:"<<newBestPathSize << std::endl;
 
   auto pathIndexes = graph.getNodeIndexesFromPath(path);
   MPI_Send(pathIndexes.data(), pathIndexes.size(), MPI_UNSIGNED_LONG,host,0,MPI_COMM_WORLD);
@@ -233,7 +233,7 @@ Path PsoPathSearch::receivePathFrom(int host)const
 
   int world_rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-  std::cout << "world_rank:"<<world_rank <<" "<< "path size received:"<<newBestPathSize << std::endl;
+  //std::cout << "world_rank:"<<world_rank <<" "<< "path size received:"<<newBestPathSize << std::endl;
 
   auto newBestPathIndexes = std::vector<sizeT>(newBestPathSize);
   MPI_Recv(newBestPathIndexes.data(), newBestPathSize, MPI_UNSIGNED_LONG, host, 0, MPI_COMM_WORLD,MPI_STATUS_IGNORE);
@@ -248,7 +248,7 @@ void PsoPathSearch::broadcastPathAs(const Path & path, int host)const
 
   int world_rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-  std::cout << "world_rank:"<<world_rank << " "<< "path size bcast:"<<newBestPathSize << std::endl;
+  //std::cout << "world_rank:"<<world_rank << " "<< "path size bcast:"<<newBestPathSize << std::endl;
 
   auto pathIndexes = graph.getNodeIndexesFromPath(path);
   MPI_Bcast(pathIndexes.data(), pathIndexes.size(), MPI_UNSIGNED_LONG,host,MPI_COMM_WORLD);
