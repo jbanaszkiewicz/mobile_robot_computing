@@ -33,6 +33,10 @@ int main(int argc, char **argv) {
     graph = Graph::getGraph(argv[4]);
   }
   
+  // liczba cząsteczek na proces
+  int world_size;
+  MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+  nr_of_particles = nr_of_particles/world_size;
   
   auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
   // bariera przed pomiarem czasu
