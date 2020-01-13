@@ -38,7 +38,7 @@ std::vector<Particle> PsoPathSearch::getParticles(
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
   
-  #pragma omp parallel for
+  // #pragma omp parallel for
   for (sizeT i = 0; i < numberOfParticles; i++)
   {
     auto pathLength = randomPaths[i].getLength();
@@ -75,7 +75,7 @@ sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) co
 std::vector<Particle> PsoPathSearch::updateParticles(
   std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const
 {
-  #pragma omp parallel for
+  // #pragma omp parallel for
   for(size_t i = 0; i < particles.size();++i)
   {
     const auto newPath = getNextPath(particles[i],bestSolution);

@@ -1,5 +1,6 @@
-CC=g++
-CFLAGS=-I. -fopenmp
+INC=-I/usr/local/cuda/include
+NVCC=/usr/local/cuda/bin/nvcc
+NVCC_OPT=-std=c++11
 DEPS =  graphGenerator.h graph.h path.h psoPathSearch.h psoTests.h randomPath.h
 OBJ = main.o graphGenerator.o graph.o path.o psoPathSearch.o psoTests.o randomPath.o
 
