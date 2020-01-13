@@ -2,7 +2,8 @@
 #include "psoPathSearch.h"
 #include "randomPath.h"
 #include "graphGenerator.h"
-#include <omp.h>
+#include <cuda_runtime_api.h>
+#include <cuda.h>
 
 PsoPathSearch::PsoPathSearch(const Graph & graph,const Node& start,const Node& destination)
 :graph(graph),
@@ -31,6 +32,16 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 
   return bestSolution;
 }
+__global__
+void generateParticles(std::vector<Particle> &particlesGPU, std::vector<Path> &randomPathsGPU, sizeT numberOfParticles){
+
+    for (sizeT i = 0; i < numberOfParticles; i++)
+  {
+    auto pathLength = randomPathsGPU[i].getLength();
+    particlesGPU[i] = Particle(randomPathsGPU[i],pathLength);
+  }
+
+}
 
 std::vector<Particle> PsoPathSearch::getParticles(
   sizeT numberOfParticles )const
@@ -38,12 +49,8 @@ std::vector<Particle> PsoPathSearch::getParticles(
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
   
-  // #pragma omp parallel for
-  for (sizeT i = 0; i < numberOfParticles; i++)
-  {
-    auto pathLength = randomPaths[i].getLength();
-    particles[i] = Particle(randomPaths[i],pathLength);
-  }
+  generateParticles<<<1, 1>>>(particles, randomPaths, numberOfParticles);
+
   return particles;
 }
 

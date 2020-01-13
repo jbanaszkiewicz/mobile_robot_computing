@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 
+
 using namespace std::chrono;
 // TODO Kuba dokończyć konfigurację c++ wg https://code.visualstudio.com/docs/cpp/config-mingw 
 int main(int argc, char **argv) {
