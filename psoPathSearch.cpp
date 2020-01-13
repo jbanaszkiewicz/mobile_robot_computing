@@ -32,7 +32,7 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 
   return bestSolution;
 }
-__global__
+// __global__
 void generateParticles(std::vector<Particle> &particlesGPU, std::vector<Path> &randomPathsGPU, sizeT numberOfParticles){
 
     for (sizeT i = 0; i < numberOfParticles; i++)
@@ -49,7 +49,8 @@ std::vector<Particle> PsoPathSearch::getParticles(
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
   
-  generateParticles<<<1, 1>>>(particles, randomPaths, numberOfParticles);
+  // generateParticles<<<1, 1>>>(particles, randomPaths, numberOfParticles);
+  generateParticles(particles, randomPaths, numberOfParticles);
 
   return particles;
 }
@@ -79,10 +80,11 @@ sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) co
   return particleWithLongestPath->currentPath.nodes.size();
 }
 
+// __global__
 std::vector<Particle> PsoPathSearch::updateParticles(
   std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const
 {
-  // #pragma omp parallel for
+
   for(size_t i = 0; i < particles.size();++i)
   {
     const auto newPath = getNextPath(particles[i],bestSolution);

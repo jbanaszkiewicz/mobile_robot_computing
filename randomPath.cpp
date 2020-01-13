@@ -18,14 +18,12 @@ bool compareNeighbours(const Node& node1,const Node& node2, const Node& destinat
 {
   return (GraphGenerator::normSquered(node1, destination) < GraphGenerator::normSquered(node2, destination));
 }
-
+// __global__
 std::vector<Path> RandomPath::getRandomPaths(
   const Graph & graph, sizeT numberOfPaths,const Node& start,const Node& destination)
 {
-  //TODO: KUBA zrownoleglic generowanie losowych sciezek KUBA
   std::vector<Path> randomPaths = std::vector<Path>(numberOfPaths);
   srand(time(NULL));
-  // #pragma omp parallel for
   for(int i =0;i < numberOfPaths;++i)
   {
     // std::cout << omp_get_thread_num() << " ";
