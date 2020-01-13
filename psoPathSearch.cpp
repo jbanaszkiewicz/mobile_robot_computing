@@ -4,6 +4,7 @@
 #include "graphGenerator.h"
 #include <cuda_runtime_api.h>
 #include <cuda.h>
+#include <ecuda/ecuda.hpp>
 
 PsoPathSearch::PsoPathSearch(const Graph & graph,const Node& start,const Node& destination)
 :graph(graph),
@@ -32,8 +33,9 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 
   return bestSolution;
 }
-// __global__
-void generateParticles(std::vector<Particle> &particlesGPU, std::vector<Path> &randomPathsGPU, sizeT numberOfParticles){
+
+__global__
+void generateParticles(typename ecuda::vector<Particle>::kernel_argument & particlesGPU, typename ecuda::vector<Path>::const_kernel_argument& randomPathsGPU, sizeT numberOfParticles){
 
     for (sizeT i = 0; i < numberOfParticles; i++)
   {
@@ -48,9 +50,13 @@ std::vector<Particle> PsoPathSearch::getParticles(
 {
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
   auto particles = std::vector<Particle>(numberOfParticles);
+
+  ecuda::vector<Particle> particlesGPU (particles.begin(), particles.end());
+  ecuda::vector<Path> randomPathsGPU (randomPaths.begin(), randomPaths.end());
   
-  // generateParticles<<<1, 1>>>(particles, randomPaths, numberOfParticles);
-  generateParticles(particles, randomPaths, numberOfParticles);
+  generateParticles<<<1, 1>>>(particlesGPU, randomPathsGPU, numberOfParticles);
+  
+  ecuda::copy(particlesGPU.begin(), particlesGPU.end(), particles.begin());
 
   return particles;
 }
