@@ -24,20 +24,38 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
   std::pair<Path,costT> bestSolution = getBestSolution(particles,anySolution ); // g, gBest
 
   maxPathLenght = getMaxPathLenght(particles);
+    // CUDA_CALL_KERNEL_AND_WAIT(<<<>>>)
 
-  for(sizeT i = 0; i < maximumIterations; ++i)
-  {
-    particles = updateParticles(particles, bestSolution);
-    bestSolution = getBestSolution(particles,bestSolution);
-  }
+
 
   return bestSolution;
 }
 
+  // może nie wracać po każdej iteracji do cpu tylko wiele iteracji na gpu?
 __global__
-void generateParticles(typename ecuda::vector<Particle>::kernel_argument & particlesGPU, typename ecuda::vector<Path>::const_kernel_argument& randomPathsGPU, sizeT numberOfParticles){
-
-    for (sizeT i = 0; i < numberOfParticles; i++)
+  // outArgs 
+  
+  // inArhs
+{
+  sizeT i = 0;
+  while( i < maximumIterations)
+  {
+    particles = updateParticles(particles, bestSolution);
+    bestSolution = getBestSolution(particles,bestSolution);
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    if(index == 0)
+    {
+      ++i;
+    } 
+  }
+}
+__global__
+void generateParticles(typename ecuda::vector<Particle>::kernel_argument & particlesGPU, typename ecuda::vector<Path>::const_kernel_argument& randomPathsGPU, sizeT numberOfParticles)
+{
+  // czy trzeba przekazać graph
+  int index = blockIdx.x * blockDim.x + threadIdx.x;
+  int stride = blockDim.x * gridDim.x;
+  for (int i = index; i < numberOfParticles; i += stride)
   {
     auto pathLength = randomPathsGPU[i].getLength();
     particlesGPU[i] = Particle(randomPathsGPU[i],pathLength);
@@ -64,6 +82,8 @@ std::vector<Particle> PsoPathSearch::getParticles(
 std::pair<Path,costT>  PsoPathSearch::getBestSolution(
   const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const
 {
+  // warto zrownoleglic swoim kodem albo z thrust 
+  //
   // https://en.cppreference.com/w/cpp/algorithm/min_element
   auto bestParticle =  std::min_element(particles.begin(),particles.end(),
     [](Particle l, Particle r) { 
@@ -86,12 +106,14 @@ sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) co
   return particleWithLongestPath->currentPath.nodes.size();
 }
 
-// __global__
+__device__
 std::vector<Particle> PsoPathSearch::updateParticles(
   std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const
 {
-
-  for(size_t i = 0; i < particles.size();++i)
+  // czy trzeba przekazać graph
+  int index = blockIdx.x * blockDim.x + threadIdx.x;
+  int stride = blockDim.x * gridDim.x;
+  for (int i = index; i < particles.size(); i += stride)
   {
     const auto newPath = getNextPath(particles[i],bestSolution);
     particles[i].setPath(newPath);
