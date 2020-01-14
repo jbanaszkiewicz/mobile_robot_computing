@@ -1,10 +1,11 @@
-#include "psoTests.h"
-#include "graphGenerator.h"
-#include "psoPathSearch.h"
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
 
+#include "psoTests.h"
+#include "graphGenerator.h"
+#include "psoPathSearch.h"
+#include "graphGPU.h"
 
 using namespace std::chrono;
 // TODO Kuba dokończyć konfigurację c++ wg https://code.visualstudio.com/docs/cpp/config-mingw 
@@ -36,9 +37,9 @@ int main(int argc, char **argv) {
     graph = Graph::getGraph(argv[5]);
   }
   
-    
-  
-  auto search = PsoPathSearch(graph,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
+  auto graphGPU = GraphGPU(graph);
+
+  auto search = PsoPathSearch(graphGPU,GraphGenerator::getStart(graph),GraphGenerator::getDestination(graph));
 
   auto start = high_resolution_clock::now();   //COMPLETED: KUBA poczatek czasu
   std::pair<Path,costT> bestSolution = search.FindShortestPath(nr_of_particles, nr_of_iterators);

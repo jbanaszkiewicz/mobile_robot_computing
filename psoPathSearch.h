@@ -37,7 +37,7 @@ public:
 class PsoPathSearch
 {
 public:
-  PsoPathSearch(const Graph & graph,const Node& start,const Node& destination);
+  PsoPathSearch(const GraphGPU & graph,const Node& start,const Node& destination);
   ~PsoPathSearch();
   std::pair<Path,costT> FindShortestPath(
     sizeT numberOfPartiles, sizeT maximumIterations);

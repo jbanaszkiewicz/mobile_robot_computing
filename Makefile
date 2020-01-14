@@ -1,5 +1,5 @@
 INC=-I/usr/local/cuda/include
-NVCC=/usr/local/cuda/bin/nvcc
+NVCC=nvcc
 NVCC_OPT=-std=c++11
 DEPS=  graphGenerator.cpp graph.cpp path.cpp psoPathSearch.cpp psoTests.cpp randomPath.cpp main.cpp
 

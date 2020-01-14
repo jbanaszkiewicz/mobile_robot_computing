@@ -44,23 +44,9 @@ const std::vector<Node>& GraphGPU::getNodes()const
 }
 
 __device__
-std::pair<mapT::const_iterator,mapT::const_iterator>
-  GraphGPU::getNeighbours(const Node* node)const
+ecuda::vector< valueT> GraphGPU::getNeighboursVector(
+  const sizeT node)const
 {
-  return edges.equal_range( node);
+  return edges[node];
 }
 
-__device__
-std::vector<const Node*> GraphGPU::getNeighboursVector(
-  std::pair<mapT::const_iterator,mapT::const_iterator> neighbours
-)const
-{
-  std::vector<const Node*> neighboursVector;
-
-  for (auto i = neighbours.first; i != neighbours.second; ++i)
-  {
-    neighboursVector.push_back((*i).second.first);
-  }
-  
-  return neighboursVector;
-}

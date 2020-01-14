@@ -1,10 +1,12 @@
 #include <algorithm> // std::max_element
-#include "psoPathSearch.h"
-#include "randomPath.h"
-#include "graphGenerator.h"
 #include <cuda_runtime_api.h>
 #include <cuda.h>
 #include <ecuda/ecuda.hpp>
+
+#include "psoPathSearch.h"
+#include "randomPath.h"
+#include "graphGenerator.h"
+#include "graphGPU.h"
 
 PsoPathSearch::PsoPathSearch(const Graph & graph,const Node& start,const Node& destination)
 :graph(graph),

@@ -35,7 +35,7 @@ public:
   realT getPositionY()const;
   __device__
   void setPositionX(realT x);
-  __device__
+  __device__  
   void setPositionY(realT y);
 };
 
@@ -54,9 +54,8 @@ public:
   std::pair<mapT::const_iterator,mapT::const_iterator>
     getNeighbours(const Node* node)const;
   __device__  
-  std::vector<const Node*> getNeighboursVector(
-    std::pair<mapT::const_iterator,mapT::const_iterator> neighbours
-  )const;
+  ecuda::vector< valueT> getNeighboursVector(
+      const sizeT node)const;    
 };
 
 #endif //GraphGPU_H
