@@ -53,6 +53,7 @@ public:
   Graph(sizeT n_nodes);
   ~Graph();
   const std::vector<Node>& getNodes()const;
+  std::vector<std::vector<std::pair<sizeT,realT>>> getEdges()const;
   void addNode(std::pair<realT, realT>p);
   void addEdge(const Node& from, const Node& to,realT distance);
   std::pair<mapT::const_iterator,mapT::const_iterator>

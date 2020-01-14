@@ -38,6 +38,12 @@ const std::vector<Node>& Graph::getNodes()const
   return nodes;
 }
 
+
+std::vector<std::vector<std::pair<sizeT,realT>>> Graph::getEdges()const
+{
+
+}
+
 void Graph::addNode(std::pair<realT, realT>p)
 {
   nodes.push_back(Node(p));   
