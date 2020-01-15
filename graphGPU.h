@@ -5,7 +5,7 @@
 #include <utility>  /* pair */
 #include <map>
 #include <ecuda/ecuda.hpp>
-#include "graph.h"
+#include "graphGPU.h"
 
 class Node;
 class Path;
@@ -42,14 +42,14 @@ public:
 class GraphGPU
 {
 private:
-  std::vector<Node> nodes;
+  ecuda::vector<Node> nodes;
   mapT edges;
   
 public:
   GraphGPU(Graph g);
   ~GraphGPU();
   __device__  
-  const std::vector<Node>& getNodes()const;
+  const ecuda::vector<Node>& getNodes()const;
   __device__  
   std::pair<mapT::const_iterator,mapT::const_iterator>
     getNeighbours(const Node* node)const;

@@ -29,8 +29,7 @@ GraphGPU::GraphGPU(Graph g)
   ecuda::copy(graphNodes.begin(),graphNodes.end(),nodes.begin() );
 
   const auto& graphEdges = g.getEdges(); 
-  // skopiowac krawedzie
-  // ecuda::copy(graphEdges.begin(),graphEdges.end(),edges.begin() );
+  ecuda::copy(graphEdges.begin(),graphEdges.end(),edges.begin() );
   
 }
 __device__
@@ -38,7 +37,7 @@ GraphGPU::~GraphGPU()
 {
 }
 __device__
-const std::vector<Node>& GraphGPU::getNodes()const
+const ecuda::vector<Node>& GraphGPU::getNodes()const
 {
   return nodes;
 }

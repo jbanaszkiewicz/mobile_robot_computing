@@ -41,7 +41,16 @@ const std::vector<Node>& Graph::getNodes()const
 
 std::vector<std::vector<std::pair<sizeT,realT>>> Graph::getEdges()const
 {
-
+  //https://stackoverflow.com/questions/29594096/convert-multimapkey-value-to-vectorvectorvalue
+  std::vector<std::vector<std::pair<sizeT,realT>>> edges4GPU;
+  for(auto it1=edges.begin(), it2=it1; it1!=edges.end(); it1=it2){
+    edges4GPU.emplace_back();
+    for (; it1->first ==it2->first; ++it2){
+      edges4GPU.back().push_back((size_t(it2->first), (it2->second)));
+      //
+    }
+  }
+  return edges4GPU;
 }
 
 void Graph::addNode(std::pair<realT, realT>p)
