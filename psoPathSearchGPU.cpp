@@ -3,12 +3,12 @@
 #include <cuda.h>
 #include <ecuda/ecuda.hpp>
 
-#include "psoPathSearch.h"
+#include "psoPathSearchGPU.h"
 #include "randomPath.h"
 #include "graphGenerator.h"
 #include "graphGPU.h"
 
-PsoPathSearch::PsoPathSearch(const graphGPU & graph,const Node& start,const Node& destination)
+PsoPathSearch::PsoPathSearchGPU(const graphGPU & graph,const Node& start,const Node& destination)
 :graph(graph),
 start(start),
 destination(destination)

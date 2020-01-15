@@ -35,7 +35,6 @@ public:
   {
     return this->position != right->position;
   }
-  // TODO: ADAM zapytaj chłopaków, czy porównanie może opierać się jedynie na współrzędnych, a nie na adresie
 
   realT getPositionX()const;
   realT getPositionY()const;

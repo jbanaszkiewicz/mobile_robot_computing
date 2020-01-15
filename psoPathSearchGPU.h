@@ -2,16 +2,16 @@
 #define PSO_PATH_SEARCH
 
 #include <vector>
-#include "graph.h"
-#include "path.h"
+#include "graphGPU.h"
+#include "pathGPU.h"
 
 using costT = realT;
 using sizeT = size_t;
 
-class Particle
+class ParticleGPU;
 {  
 public:
-  Path bestPath; // p
+  PathGPU bestPathPU; 
   costT bestCost; // pBest
   Path currentPath;
   costT currentCost;

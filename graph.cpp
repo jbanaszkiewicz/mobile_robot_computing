@@ -43,13 +43,13 @@ std::vector<std::vector<std::pair<sizeT,realT>>> Graph::getEdges()const
 {
   //https://stackoverflow.com/questions/29594096/convert-multimapkey-value-to-vectorvectorvalue
   std::vector<std::vector<std::pair<sizeT,realT>>> edges4GPU;
-  for(auto it1=edges.begin(), it2=it1; it1!=edges.end(); it1=it2){
-    edges4GPU.emplace_back();
-    for (; it1->first ==it2->first; ++it2){
-      edges4GPU.back().push_back((size_t(it2->first), (it2->second)));
-      //
-    }
-  }
+  // for(auto it1=edges.begin(), it2=it1; it1!=edges.end(); it1=it2){
+  //   edges4GPU.emplace_back();
+  //   for (; it1->first ==it2->first; ++it2){
+  //     edges4GPU.back().push_back(((it2->first), (it2->second)));
+  //     //TODO ADAM zastanowić się jak rzutowac elementy edges, zeby pasowaly pod nowy typ edges4GPU
+  //   }
+  // }
   return edges4GPU;
 }
 
