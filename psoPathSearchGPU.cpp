@@ -7,16 +7,16 @@
 #include "randomPath.h"
 #include "graphGenerator.h"
 #include "graphGPU.h"
-__device__
+__global__
 PsoPathSearchGPU::PsoPathSearchGPU(const graphGPU & graph,const Node& start,const Node& destination)
 :graph(graph),
 start(start),
 destination(destination)
 {}
-__device__
+__global__
 PsoPathSearchGPU::~PsoPathSearchGPU()
 {}
-
+__global__
 ecuda::pair<Path,costT> PsoPathSearchGPU::FindShortestPath(
   sizeT numberOfParticles, sizeT maximumIterations = 500)
 { 
@@ -52,7 +52,7 @@ void generateParticles(typename ecuda::vector<ParticleGPU>::kernel_argument & pa
   }
 
 }
-
+__global__
 ecuda::vector<ParticleGPU> PsoPathSearch::getParticles(
   sizeT numberOfParticles )const
 {
@@ -68,7 +68,7 @@ ecuda::vector<ParticleGPU> PsoPathSearch::getParticles(
 
   return particles;
 }
-
+__global__
 ecuda::pair<Path,costT>  PsoPathSearch::getBestSolution(
   const ecuda::vector<ParticleGPU> & particles,ecuda::pair<Path,costT> bestSolution)const
 {
@@ -86,7 +86,7 @@ ecuda::pair<Path,costT>  PsoPathSearch::getBestSolution(
   } 
   return ecuda::pair<Path,costT>(bestParticle->bestPath,bestParticle->bestCost);
 }
-
+__global__
 sizeT PsoPathSearch::getMaxPathLenght(const ecuda::vector<Particle>& particles) const
 {
   auto particleWithLongestPath =  ecuda::max_element(particles.begin(),particles.end(),
@@ -96,7 +96,7 @@ sizeT PsoPathSearch::getMaxPathLenght(const ecuda::vector<Particle>& particles) 
   return particleWithLongestPath->currentPath.nodes.size();
 }
 
-__device__
+__global__
 ecuda::vector<ParticleGPU> PsoPathSearch::updateParticles(
   ecuda::vector<ParticleGPU>& particles,const ecuda::pair<Path,costT>& bestSolution)const
 {
@@ -127,6 +127,7 @@ void operateOnParticle(typename ecuda::vector<ParticleGPU>::kernel_argument & pa
   }
 }
 
+__global__
 PathGPU PsoPathSearch::getNextPath(
   const ParticleGPU& particle,const ecuda::pair<PathGPU,costT>& bestSolution)const
 {
@@ -152,7 +153,7 @@ PathGPU PsoPathSearch::getNextPath(
   
   return newPath;
 }
-
+__global__
 const Node* PsoPathSearch::getNeighbourClosestTo(
   ecuda::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
   const Node* globalBestPathNode,
@@ -175,7 +176,7 @@ const Node* PsoPathSearch::getNeighbourClosestTo(
   }
     return (*closestNeighbour).second.first;
 }
-
+__global__
 void ParticleGPU::setPath(const PathGPU& pathGPU)
 {
   currentPath = pathGPU; 

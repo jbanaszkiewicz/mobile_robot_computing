@@ -1,10 +1,10 @@
 #include "pathGPU.h"
 #include <cmath>
-
+__global__
 PathGPU::~PathGPU()
 {
 }
-
+__global__
 const Node* PathGPU::getNode(size_t i)const
 {
   if(i >=  nodes.size())
@@ -13,7 +13,7 @@ const Node* PathGPU::getNode(size_t i)const
   }
   return nodes[i];
 }
-//TODO ADAM poprawić błąd z wykorzystaniem słowa kluczoewgo this
+__global__
 realT PathGPU::getLength()const
 {
   realT length = 0;
@@ -40,7 +40,7 @@ realT PathGPU::getLength()const
 
   return length;
 }
-
+__global__
 void PathGPU::addNodeToPath(const Node* node)
 {
   this->nodes.push_back(node);
