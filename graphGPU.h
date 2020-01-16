@@ -13,21 +13,19 @@ class PathGPU;
 
 using sizeT = size_t;
 using realT = double;
-using valueT = ecuda::pair<const Node*,realT>;
- 
-using mapT = ecuda::vector<ecuda::vector<valueT>>;
+using edgeT = ecuda::pair<sizeT,realT>; // (index in nodes, distance)
+using edgesT = ecuda::vector<ecuda::vector<edgeT>>; // lista sąsiedztw (wektor[węzeł_na_początku_krawędzi] = wektorów[(węzeł_na_końcu,długość)]) 
 
 class NodeGPU
 {
 public:
   ecuda::pair<realT, realT> position;
 
-
-  NodeGPU(ecuda::pair<realT, realT> p)
+  NodeGPU(std::pair<realT, realT> p)
   {
-    // position =   ecuda::pair<realT, realT>(p.first,p.second);
+    position = ecuda::pair<realT, realT>(p.first,p.second);
   }
-  // ASK TOMEK? tutaj brakuje bool operator'ow
+  // ASK TOMEK? tutaj brakuje bool operator'ow // dopisać tylko potrzebne
   __device__
   realT getPositionX()const;
   __device__
@@ -41,20 +39,20 @@ public:
 class GraphGPU
 {
 private:
-  ecuda::vector<Node> nodes;
-  mapT edges;
+  ecuda::vector<NodeGPU> nodes;
+  edgesT edges;
   
 public:
   GraphGPU(Graph g);
   ~GraphGPU();
   __device__  
-  const ecuda::vector<Node>& getNodes()const;
+  ecuda::vector<NodeGPU> getNodes()const;
+  __device__  // ta funkcja jest trudna, przejrzeć jej użycia, najlepiej zamienić na getNeighboursVector
+  std::pair<edgesT::const_iterator,edgesT::const_iterator>
+    getNeighbours(const NodeGPU* node)const;
   __device__  
-  std::pair<mapT::const_iterator,mapT::const_iterator>
-    getNeighbours(const Node* node)const;
-  __device__  
-  ecuda::vector< valueT> getNeighboursVector(
-      const sizeT node)const;    
+  ecuda::vector< edgeT> getNeighboursVector(
+      const sizeT node);    
 };
 // PYT tutaj jest duzo mniej funkcji zadeklarowanych niz w oryginalnym pliku graph.h
 #endif //GraphGPU_H

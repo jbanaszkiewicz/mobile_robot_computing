@@ -33,24 +33,24 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
   return bestSolution;
 }
 
-  // może nie wracać po każdej iteracji do cpu tylko wiele iteracji na gpu?
-__global__
-  // outArgs 
+//   // może nie wracać po każdej iteracji do cpu tylko wiele iteracji na gpu?
+// __global__
+//   // outArgs 
   
-  // inArhs
-{
-  sizeT i = 0;
-  while( i < maximumIterations)
-  {
-    particles = updateParticles(particles, bestSolution);
-    bestSolution = getBestSolution(particles,bestSolution);
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
-    if(index == 0)
-    {
-      ++i;
-    } 
-  }
-}
+//   // inArhs
+// {
+//   sizeT i = 0;
+//   while( i < maximumIterations)
+//   {
+//     particles = updateParticles(particles, bestSolution);
+//     bestSolution = getBestSolution(particles,bestSolution);
+//     int index = blockIdx.x * blockDim.x + threadIdx.x;
+//     if(index == 0)
+//     {
+//       ++i;
+//     } 
+//   }
+// }
 __global__
 void generateParticles(typename ecuda::vector<Particle>::kernel_argument & particlesGPU, typename ecuda::vector<Path>::const_kernel_argument& randomPathsGPU, sizeT numberOfParticles)
 {

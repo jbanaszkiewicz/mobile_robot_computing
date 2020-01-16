@@ -1,5 +1,5 @@
-#ifndef PSO_PATH_SEARCH
-#define PSO_PATH_SEARCH
+#ifndef PSO_PATH_SEARCH_GPU
+#define PSO_PATH_SEARCH_GPU
 
 #include <vector>
 #include "graphGPU.h"
@@ -66,4 +66,4 @@ private:
   friend class PsoTests;
 };
 
-#endif // PSO_PATH_SEARCH
+#endif // PSO_PATH_SEARCH_GPU

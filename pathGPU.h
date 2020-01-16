@@ -1,5 +1,5 @@
-#ifndef PATH_H
-#define PATH_H
+#ifndef PATH_GPU
+#define PATH_GPU
 #include <vector>
 #include "graphGPU.h"
 #include <ecuda/ecuda.hpp>
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif // PATH_H
+#endif // PATH_GPU
