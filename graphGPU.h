@@ -3,19 +3,18 @@
 #include <stddef.h> // size_t
 #include <vector> // to del use ecuda
 #include <utility>  /* pair */
-#include <map>
+#include <cuda_runtime_api.h>
+#include <cuda.h>
 #include <ecuda/ecuda.hpp>
-#include "graphGPU.h"
+#include "graph.h"
 
-class Node;
-class Path;
+class NodeGPU;
+class PathGPU;
 
 using sizeT = size_t;
 using realT = double;
 using valueT = ecuda::pair<const Node*,realT>;
-// using mapT = std::multimap<keyT,valueT>;
-// numer węzła - index w zewnętrznym wektorze
-// sąsiad i odległość - elementy 2 wektora  
+ 
 using mapT = ecuda::vector<ecuda::vector<valueT>>;
 
 class NodeGPU
@@ -24,11 +23,11 @@ public:
   ecuda::pair<realT, realT> position;
 
 
-  NodeGPU(std::pair<realT, realT> p)
+  NodeGPU(ecuda::pair<realT, realT> p)
   {
-    position =   ecuda::pair<realT, realT>(p.first,p.second);
+    // position =   ecuda::pair<realT, realT>(p.first,p.second);
   }
-  
+  // ASK TOMEK? tutaj brakuje bool operator'ow
   __device__
   realT getPositionX()const;
   __device__
@@ -57,5 +56,5 @@ public:
   ecuda::vector< valueT> getNeighboursVector(
       const sizeT node)const;    
 };
-
+// PYT tutaj jest duzo mniej funkcji zadeklarowanych niz w oryginalnym pliku graph.h
 #endif //GraphGPU_H

@@ -16,17 +16,17 @@ public:
   Path currentPath;
   costT currentCost;
 
-  Particle()
+  ParticleGPU()
   {}
 
-  Particle(const Path & path,const costT  pathLength)
+  ParticleGPU(const Path & path,const costT  pathLength)
   :bestPath(path),
   bestCost(pathLength),
   currentPath(path),
   currentCost(pathLength)
   {}
 
-  ~Particle()
+  ~ParticleGPU()
   {}
 
 
@@ -34,34 +34,35 @@ public:
 };
 
 
-class PsoPathSearch
+class PsoPathSearchGPU
 {
 public:
-  PsoPathSearch(const GraphGPU & graph,const Node& start,const Node& destination);
-  ~PsoPathSearch();
-  std::pair<Path,costT> FindShortestPath(
+  __device__
+  PsoPathSearchGPU(const GraphGPU & graph,const NodeGPU& start,const NodeGPU& destination);
+  ~PsoPathSearchGPU();
+  ecuda::pair<Path,costT> FindShortestPath(
     sizeT numberOfPartiles, sizeT maximumIterations);
 private:
-  const Graph& graph;
-  const Node& start;
-  const Node& destination;
+  const GraphGPU& GraphGPU;
+  const NodeGPU& start;
+  const NodeGPU& destination;
 
   sizeT maxPathLenght;
 
-  std::vector<Particle> getParticles(
+  ecuda::vector<ParticleGPU> getParticles(
     sizeT numberOfParticles)const;
-  std::pair<Path,costT> getBestSolution(
-    const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const;
-  std::vector<Particle> updateParticles(
-    std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const;
+  ecuda::pair<Path,costT> getBestSolution(
+    const ecuda::vector<ParticleGPU> & particles,ecuda::pair<PathGPU,costT> bestSolution)const;
+  ecuda::vector<ParticleGPU> updateParticles(
+    ecuda::vector<ParticleGPU>& particles,const ecuda::pair<PathGPU,costT>& bestSolution)const;
   Path getNextPath(
-    const Particle& particle,const std::pair<Path,costT>& bestSolution)const;
+    const ParticleGPU& particle,const ecuda::pair<PathGPU,costT>& bestSolution)const;
   const Node* getNeighbourClosestTo(
-    std::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
+    ecuda::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
     const Node* globalBestPathNode,
     const Node* particelBestPathNode
     )const; 
-  sizeT getMaxPathLenght(const std::vector<Particle>& particles) const;
+  sizeT getMaxPathLenght(const ecuda::vector<ParticleGPU>& particles) const;
   friend class PsoTests;
 };
 

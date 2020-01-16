@@ -1,4 +1,4 @@
-#include <algorithm> // std::max_element
+#include <algorithm> // ecuda::max_element
 #include <cuda_runtime_api.h>
 #include <cuda.h>
 #include <ecuda/ecuda.hpp>
@@ -7,25 +7,25 @@
 #include "randomPath.h"
 #include "graphGenerator.h"
 #include "graphGPU.h"
-
-PsoPathSearch::PsoPathSearchGPU(const graphGPU & graph,const Node& start,const Node& destination)
+__device__
+PsoPathSearchGPU::PsoPathSearchGPU(const graphGPU & graph,const Node& start,const Node& destination)
 :graph(graph),
 start(start),
 destination(destination)
 {}
-
-PsoPathSearch::~PsoPathSearch()
+__device__
+PsoPathSearchGPU::~PsoPathSearchGPU()
 {}
 
-ecuda::pair<Path,costT> PsoPathSearch::FindShortestPath(
+ecuda::pair<Path,costT> PsoPathSearchGPU::FindShortestPath(
   sizeT numberOfParticles, sizeT maximumIterations = 500)
 { 
-  ecuda::vector<Particle> particles = getParticles( numberOfParticles );
-  const auto firstParticle = particles.front();
-  const auto anySolution = std::pair<Path,costT>(firstParticle.currentPath, firstParticle.currentCost);
-  std::pair<Path,costT> bestSolution = getBestSolution(particles,anySolution ); // g, gBest
+  ecuda::vector<ParticleGPU> particlesGPU = getParticles( numberOfParticles );
+  const auto firstParticleGPU = particlesGPU.front();
+  const auto anySolution = ecuda::pair<Path,costT>(firstParticleGPU.currentPath, firstParticleGPU.currentCost);
+  ecuda::pair<Path,costT> bestSolution = getBestSolution(particlesGPU,anySolution ); // g, gBest
 
-  maxPathLenght = getMaxPathLenght(particles);
+  maxPathLenght = getMaxPathLenght(particlesGPU);
     // CUDA_CALL_KERNEL_AND_WAIT(<<<>>>)
 
 
@@ -34,25 +34,13 @@ ecuda::pair<Path,costT> PsoPathSearch::FindShortestPath(
 }
 
   // może nie wracać po każdej iteracji do cpu tylko wiele iteracji na gpu?
-__global__
+
   // outArgs 
   
   // inArhs
-{
-  sizeT i = 0;
-  while( i < maximumIterations)
-  {
-    particles = updateParticles(particles, bestSolution);
-    bestSolution = getBestSolution(particles,bestSolution);
-    int index = blockIdx.x * blockDim.x + threadIdx.x;
-    if(index == 0)
-    {
-      ++i;
-    } 
-  }
-}
+
 __global__
-void generateParticles(typename ecuda::vector<Particle>::kernel_argument & particlesGPU, typename ecuda::vector<Path>::const_kernel_argument& randomPathsGPU, sizeT numberOfParticles)
+void generateParticles(typename ecuda::vector<ParticleGPU>::kernel_argument & particlesGPU, typename ecuda::vector<Path>::const_kernel_argument& randomPathsGPU, sizeT numberOfParticles)
 {
   // czy trzeba przekazać graph
   int index = blockIdx.x * blockDim.x + threadIdx.x;
@@ -60,18 +48,18 @@ void generateParticles(typename ecuda::vector<Particle>::kernel_argument & parti
   for (int i = index; i < numberOfParticles; i += stride)
   {
     auto pathLength = randomPathsGPU[i].getLength();
-    particlesGPU[i] = Particle(randomPathsGPU[i],pathLength);
+    particlesGPU[i] = ParticleGPU(randomPathsGPU[i],pathLength);
   }
 
 }
 
-std::vector<Particle> PsoPathSearch::getParticles(
+ecuda::vector<ParticleGPU> PsoPathSearch::getParticles(
   sizeT numberOfParticles )const
 {
   auto randomPaths = RandomPath::getRandomPaths(graph, numberOfParticles, start, destination);
-  auto particles = std::vector<Particle>(numberOfParticles);
+  auto particles = ecuda::vector<ParticleGPU>(numberOfParticles);
 
-  ecuda::vector<Particle> particlesGPU (particles.begin(), particles.end());
+  ecuda::vector<ParticleGPU> particlesGPU (particles.begin(), particles.end());
   ecuda::vector<Path> randomPathsGPU (randomPaths.begin(), randomPaths.end());
   
   generateParticles<<<1, 1>>>(particlesGPU, randomPathsGPU, numberOfParticles);
@@ -81,14 +69,14 @@ std::vector<Particle> PsoPathSearch::getParticles(
   return particles;
 }
 
-std::pair<Path,costT>  PsoPathSearch::getBestSolution(
-  const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const
+ecuda::pair<Path,costT>  PsoPathSearch::getBestSolution(
+  const ecuda::vector<ParticleGPU> & particles,ecuda::pair<Path,costT> bestSolution)const
 {
   // warto zrownoleglic swoim kodem albo z thrust 
   //
   // https://en.cppreference.com/w/cpp/algorithm/min_element
-  auto bestParticle =  std::min_element(particles.begin(),particles.end(),
-    [](Particle l, Particle r) { 
+  auto bestParticle =  ecuda::min_element(particles.begin(),particles.end(),
+    [](ParticleGPU l, ParticleGPU r) { 
         return l.bestCost < r.bestCost; 
     });
 
@@ -96,12 +84,12 @@ std::pair<Path,costT>  PsoPathSearch::getBestSolution(
   {
     return bestSolution;
   } 
-  return std::pair<Path,costT>(bestParticle->bestPath,bestParticle->bestCost);
+  return ecuda::pair<Path,costT>(bestParticle->bestPath,bestParticle->bestCost);
 }
 
-sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) const
+sizeT PsoPathSearch::getMaxPathLenght(const ecuda::vector<Particle>& particles) const
 {
-  auto particleWithLongestPath =  std::max_element(particles.begin(),particles.end(),
+  auto particleWithLongestPath =  ecuda::max_element(particles.begin(),particles.end(),
     [](Particle l, Particle r) { 
       return l.currentPath.nodes.size() < r.currentPath.nodes.size(); 
   });
@@ -109,8 +97,8 @@ sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) co
 }
 
 __device__
-std::vector<Particle> PsoPathSearch::updateParticles(
-  std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const
+ecuda::vector<ParticleGPU> PsoPathSearch::updateParticles(
+  ecuda::vector<ParticleGPU>& particles,const ecuda::pair<Path,costT>& bestSolution)const
 {
   // czy trzeba przekazać graph
   int index = blockIdx.x * blockDim.x + threadIdx.x;
@@ -123,10 +111,26 @@ std::vector<Particle> PsoPathSearch::updateParticles(
   return particles;
 }
 
-Path PsoPathSearch::getNextPath(
-  const Particle& particle,const std::pair<Path,costT>& bestSolution)const
+__global__
+void operateOnParticle(typename ecuda::vector<ParticleGPU>::kernel_argument & particles, const ecuda::pair<Path,costT>& bestSolution, sizeT  maximumIterations)
 {
-  Path newPath = Path();
+  sizeT i = 0;
+  while( i < maximumIterations)
+  {
+    particlesGPU = updateParticles(particlesGPU, bestSolution);
+    bestSolution = getBestSolution(particlesGPU,bestSolution);
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    if(index == 0)
+    {
+      ++i;
+    } 
+  }
+}
+
+PathGPU PsoPathSearch::getNextPath(
+  const ParticleGPU& particle,const ecuda::pair<PathGPU,costT>& bestSolution)const
+{
+  PathGPU newPath = PathGPU();
   
   const auto* current = &start;
   newPath.nodes.push_back(current);
@@ -150,7 +154,7 @@ Path PsoPathSearch::getNextPath(
 }
 
 const Node* PsoPathSearch::getNeighbourClosestTo(
-  std::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
+  ecuda::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
   const Node* globalBestPathNode,
   const Node* particelBestPathNode
   )const
@@ -172,10 +176,10 @@ const Node* PsoPathSearch::getNeighbourClosestTo(
     return (*closestNeighbour).second.first;
 }
 
-void Particle::setPath(const Path& path)
+void ParticleGPU::setPath(const PathGPU& pathGPU)
 {
-  currentPath = path; 
-  currentCost = path.getLength();
+  currentPath = pathGPU; 
+  currentCost = pathGPU.getLength();
   if(currentCost < bestCost)
   {
     bestCost = currentCost;
