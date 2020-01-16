@@ -39,19 +39,36 @@ const std::vector<Node>& Graph::getNodes()const
 }
 
 
+sizeT Graph::getNodeIndex(const Node * n)const
+{
+  return n - nodes.data();
+}
+
 std::vector<std::vector<std::pair<sizeT,realT>>> Graph::getEdges()const
 {
   //https://stackoverflow.com/questions/29594096/convert-multimapkey-value-to-vectorvectorvalue
+  //TODO ADAM zastanowić się jak rzutowac elementy edges, zeby pasowaly pod nowy typ edges4GPU
+  // zakładając że nasza multimapa jest gęsta (mało węzłów bez krawędzi) iterujmy po węzłach
   std::vector<std::vector<std::pair<sizeT,realT>>> edges4GPU;
-  // for(auto it1=edges.begin(), it2=it1; it1!=edges.end(); it1=it2){
-  //   edges4GPU.emplace_back();
-  //   for (; it1->first ==it2->first; ++it2){
-  //     edges4GPU.back().push_back(((it2->first), (it2->second)));
-  //     //TODO ADAM zastanowić się jak rzutowac elementy edges, zeby pasowaly pod nowy typ edges4GPU
-  //   }
-  // }
+
+  for(sizeT i = 0; i < nodes.size(); ++i)
+  {
+    auto neighbours = getNeighbours(&nodes[i]);
+    auto neighboursVector = std::vector<std::pair<sizeT,realT>>();
+
+    for (auto i = neighbours.first; i != neighbours.second; ++i)
+    {
+      auto nodeIndex = getNodeIndex((*i).second.first);
+      auto nodeDistance = (*i).second.second;
+      neighboursVector.push_back(std::make_pair(nodeIndex,nodeDistance));
+    }
+    edges4GPU.push_back(neighboursVector);
+  }
+
   return edges4GPU;
 }
+
+
 
 void Graph::addNode(std::pair<realT, realT>p)
 {
@@ -146,4 +163,3 @@ Graph Graph::getGraph(std::string filename)
   graph = GraphGenerator::addEdges(graph, radiusOfNeighbourhood);
   return graph;
 }
-
