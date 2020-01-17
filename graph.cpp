@@ -23,7 +23,7 @@ void Node::setPositionY(realT y)
 {
   this->position.second = y;
 }
-
+// Alokuje pamięć na wierzchołki bez wywoływania konstruktorów
 Graph::Graph(sizeT n_nodes)
 {
   nodes = std::vector<Node>();
@@ -33,28 +33,28 @@ Graph::Graph(sizeT n_nodes)
 Graph::~Graph()
 {
 }
-
+// zwraca referęcję na wierzchołki których nie można przez nią zmieniać
 const std::vector<Node>& Graph::getNodes()const
 {
   return nodes;
 }
-
+// dodaje wierzchołek do grafu
 void Graph::addNode(std::pair<realT, realT>p)
 {
   nodes.push_back(Node(p));   
 }
-
+// dodaje skierowaną krawędz do grafu, należy utworzyć dwie takie krawędzie 
 void Graph::addEdge(const Node & from, const Node & to, realT distance)
 {
   edges.insert( std::pair<keyT,valueT>(&from, valueT(&to, distance))); 
 }
-
+// zwraca valueT sąsiadów danego węzła (iterator na pierwszego sąsiada i iterator za ostatnim sąsiadem)
 std::pair<mapT::const_iterator,mapT::const_iterator>
   Graph::getNeighbours(const Node* node)const
 {
   return edges.equal_range( node);
 }
-
+// zwraca wektor sąsiadów tyklo węzły
 std::vector<const Node*> Graph::getNeighboursVector(
   std::pair<mapT::const_iterator,mapT::const_iterator> neighbours
 )const
@@ -68,13 +68,13 @@ std::vector<const Node*> Graph::getNeighboursVector(
   
   return neighboursVector;
 }
-
+// wypisuje graf w konsoli
 void Graph::showGraph()const
 {
   showNodes();
   showEdges();
 }
-
+// wypisuje węzły w konsoli
 void Graph::showNodes()const
 {
   for(const auto& i : nodes)

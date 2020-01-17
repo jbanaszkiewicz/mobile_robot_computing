@@ -11,8 +11,8 @@ class Path;
 using sizeT = size_t;
 using realT = double;
 using keyT = const Node*;
-using valueT = std::pair<const Node*,realT>;
-using mapT = std::multimap<keyT,valueT>;
+using valueT = std::pair<const Node*,realT>; // para (węzeł na którym kończy się krawędź, długość krawędzi)
+using mapT = std::multimap<keyT,valueT>; // lista sąsiedztwa w formie multimapy par (węzeł z którego wychodzi krawędz, valueT)
 
 class Node
 {
