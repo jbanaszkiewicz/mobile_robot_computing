@@ -8,9 +8,9 @@
 // #include <time.h> /* time */
 
 // https://en.wikipedia.org/wiki/Random_geometric_graph
-// Generates graph by
-// generates random point in unit size squere with nonnegative coords
-// conects ones in Neighbourhood given by radius
+// Generuje graf przez
+// Wygenerowanie losowych punktów w kwadracie o wierzchołkach (0,0), (1,0), (0,1) i (1,1) 
+// Łączy wierzchołki jeżeli są odległe o nie wiecej niż podany promień sąsiedztwa radiusOfNeighbourhood
 using realT = double;
 using sizeT = size_t;
 using pointT = std::pair<realT, realT>;

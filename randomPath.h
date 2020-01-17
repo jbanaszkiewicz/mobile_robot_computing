@@ -11,7 +11,7 @@ using sizeT = size_t;
 class RandomPath
 {
 public:
-  RandomPath(/* args */);
+  RandomPath();
   ~RandomPath();
 
   static std::vector<Path> getRandomPaths(

@@ -12,7 +12,11 @@ destination(destination)
 
 PsoPathSearch::~PsoPathSearch()
 {}
-
+// 1. Generuje cząstki z losowymi ścieżkami
+// 2. Zapisuje najlepsze rozwiązanie
+// 3. maximumIterations razy
+//   3.a Poprawia ścieżkę każdej cząstki w oparciu o najlepszą dla niej i najlepszą globalnie
+//   3.b Zapisuje dotychczasowe najlepsze rozwiązanie
 std::pair<Path,costT> PsoPathSearch::FindShortestPath(
   sizeT numberOfParticles, sizeT maximumIterations = 500)
 { 
@@ -31,7 +35,10 @@ std::pair<Path,costT> PsoPathSearch::FindShortestPath(
 
   return bestSolution;
 }
-
+// 1. Generuje losowe ścieżki
+// 2. Dla każdej ścieżki
+//   2.a Obliczana jest jej długośc
+//   2.b Tworzona jest na podstawie ścieżki cząstka
 std::vector<Particle> PsoPathSearch::getParticles(
   sizeT numberOfParticles )const
 {
@@ -46,7 +53,7 @@ std::vector<Particle> PsoPathSearch::getParticles(
   }
   return particles;
 }
-
+// Spośród ścieżek przechowywanych przez cząstki i najlepszej ścieżki dotychczas wybierana jest nowa najlepsza
 std::pair<Path,costT>  PsoPathSearch::getBestSolution(
   const std::vector<Particle> & particles,std::pair<Path,costT> bestSolution)const
 {
@@ -62,7 +69,8 @@ std::pair<Path,costT>  PsoPathSearch::getBestSolution(
   } 
   return std::pair<Path,costT>(bestParticle->bestPath,bestParticle->bestCost);
 }
-
+// Obliczanie maxymalnej liczby węzłów w ścieżkach
+// Słóży do ograniczenia długości ścieżki
 sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) const
 {
   auto particleWithLongestPath =  std::max_element(particles.begin(),particles.end(),
@@ -71,7 +79,9 @@ sizeT PsoPathSearch::getMaxPathLenght(const std::vector<Particle>& particles) co
   });
   return particleWithLongestPath->currentPath.nodes.size();
 }
-
+// 1. Dla każdej cząsteczki
+//   1.a Wylicza nową ścieżkę
+//   1.b Aktualizuje ścieżkę w cząsteczce
 std::vector<Particle> PsoPathSearch::updateParticles(
   std::vector<Particle>& particles,const std::pair<Path,costT>& bestSolution)const
 {
@@ -83,7 +93,10 @@ std::vector<Particle> PsoPathSearch::updateParticles(
   } 
   return particles;
 }
-
+// Tworzy nową ścieśkę rozpoczynając od startu
+// W każdym kroku dodaje węzeł króry jest najbliżej i-tego węzła ścieżki najlepszej dla cząsteczki i najlepszej globalnie
+// Jeżeli utworzona zostanie ścieżka dłuższa niż najdłuższa ścieżka losowa
+//   to zwraca pierwotną ścieżkę cząsteczki
 Path PsoPathSearch::getNextPath(
   const Particle& particle,const std::pair<Path,costT>& bestSolution)const
 {
@@ -109,7 +122,7 @@ Path PsoPathSearch::getNextPath(
   
   return newPath;
 }
-
+// znajduje sąsiada dla którego suma odległości od podanych węzów jest najmniejsza
 const Node* PsoPathSearch::getNeighbourClosestTo(
   std::pair<mapT::const_iterator,mapT::const_iterator> neighbours,
   const Node* globalBestPathNode,
@@ -132,7 +145,9 @@ const Node* PsoPathSearch::getNeighbourClosestTo(
   }
     return (*closestNeighbour).second.first;
 }
-
+// Aktualizuje cząsteczkę w oparciu o nową ścieżkę
+// Jeżeli nowa ścieżka jest krótsza od najlepszej dotychczas dla danej cząsteczki
+//   to nowa ścieżka staje się najlepsza dotychczas
 void Particle::setPath(const Path& path)
 {
   currentPath = path; 

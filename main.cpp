@@ -51,18 +51,5 @@ int main(int argc, char **argv) {
   
   std::cout<<duration<<std::endl<< cost_best_path<<std::endl; // koszt sciezki
 
-  //TODO: statystyki
-    // czas wyszukiwania search.findshortestpath
-    //ilosc nodów koncowej
-    //dlugosc sciezki konsowej
-    //wielkosc grafu -> ktory z zapisanych do pliku
-    //nr_of_particles, nr_of_iterations
-  
-  // nazwa grafu 
-  // całkowity czas 
-  // liczba wątków 
-
-  //TODO: sprawdzic po ilu interacjach generowania sciezka wynikowa jest zawsze taka sama i tą ilość iteracji wybrać jako końcową  -> zadanie na pozniej
-  //TODO: KUBA zrobić make projektu
   return 0;
 }

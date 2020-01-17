@@ -8,7 +8,9 @@ Path::Path()
 Path::~Path()
 {
 }
-
+// Zwraca i-ty węzeł ze ścieżki
+// Jeżeli ścieżka nie ma i węzłów
+//   to zwraca ostani
 const Node* Path::getNode(size_t i)const
 {
   if(i >=  nodes.size())
@@ -17,7 +19,9 @@ const Node* Path::getNode(size_t i)const
   }
   return nodes[i];
 }
-
+// zwraca dlugość scieżki, oblicza odległości między węzłami
+// mogło by być odrobinę szybsze gdyby zastosować
+// wektor map jako kontener na krawędzie
 realT Path::getLength()const
 {
   realT length = 0;

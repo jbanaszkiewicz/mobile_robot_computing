@@ -1,7 +1,9 @@
+
 #include "graph.h"
 #include <iostream>
 #include <fstream>
 #include "graphGenerator.h"
+#include "path.h"
 
 realT Node::getPositionX()const
 {
@@ -22,7 +24,7 @@ void Node::setPositionY(realT y)
 {
   this->position.second = y;
 }
-
+// Alokuje pamięć na wierzchołki bez wywoływania konstruktorów
 Graph::Graph(sizeT n_nodes)
 {
   nodes = std::vector<Node>();
@@ -32,28 +34,28 @@ Graph::Graph(sizeT n_nodes)
 Graph::~Graph()
 {
 }
-
+// zwraca referęcję na wierzchołki których nie można przez nią zmieniać
 const std::vector<Node>& Graph::getNodes()const
 {
   return nodes;
 }
-
+// dodaje wierzchołek do grafu
 void Graph::addNode(std::pair<realT, realT>p)
 {
   nodes.push_back(Node(p));   
 }
-
+// dodaje skierowaną krawędz do grafu, należy utworzyć dwie takie krawędzie 
 void Graph::addEdge(const Node & from, const Node & to, realT distance)
 {
   edges.insert( std::pair<keyT,valueT>(&from, valueT(&to, distance))); 
 }
-
+// zwraca valueT sąsiadów danego węzła (iterator na pierwszego sąsiada i iterator za ostatnim sąsiadem)
 std::pair<mapT::const_iterator,mapT::const_iterator>
   Graph::getNeighbours(const Node* node)const
 {
   return edges.equal_range( node);
 }
-
+// zwraca wektor sąsiadów tyklo węzły
 std::vector<const Node*> Graph::getNeighboursVector(
   std::pair<mapT::const_iterator,mapT::const_iterator> neighbours
 )const
@@ -67,13 +69,13 @@ std::vector<const Node*> Graph::getNeighboursVector(
   
   return neighboursVector;
 }
-
+// wypisuje graf w konsoli
 void Graph::showGraph()const
 {
   showNodes();
   showEdges();
 }
-
+// wypisuje węzły w konsoli
 void Graph::showNodes()const
 {
   for(const auto& i : nodes)
@@ -81,7 +83,7 @@ void Graph::showNodes()const
     std::cout << i.position.first << "," << i.position.second << std::endl;
   }
 }
-
+// wypisuje krawędzie na konsoli
 void Graph::showEdges()const
 {
   for(const auto& i : edges)
@@ -90,7 +92,11 @@ void Graph::showEdges()const
     "->" << i.second.first->position.first <<","<< i.second.first->position.first << std::endl;
   }
 }
-
+// Zapisuje graf do pliku o strukturze:
+// liczba_węzłów_w_grafie
+// maksymalna_ogległość_w_jakiej_wierzchołki_są_sąsiadami
+// [pozycja_x_węzła
+// pozycja_y_węzła]
 void Graph::saveToFile(std::string filename, realT radiusOfNeighbourhood)const
 {
   std::ofstream outputFile;
@@ -107,7 +113,11 @@ void Graph::saveToFile(std::string filename, realT radiusOfNeighbourhood)const
   
   outputFile.close();
 }
-
+// Wczytuje graf z pliku o strukturze:
+// liczba_węzłów_w_grafie
+// maksymalna_ogległość_w_jakiej_wierzchołki_są_sąsiadami
+// [pozycja_x_węzła
+// pozycja_y_węzła]
 Graph Graph::getGraph(std::string filename)
 {
   std::vector<Node> nodesFromFile;
@@ -131,4 +141,3 @@ Graph Graph::getGraph(std::string filename)
   graph = GraphGenerator::addEdges(graph, radiusOfNeighbourhood);
   return graph;
 }
-

@@ -5,10 +5,10 @@ import json
 from tqdm import tqdm
 
 graph_paths = [
-  "graph5000"
+  "graph100"
 ]
 nrs_of_iterations = [
-  1000 
+  1000
 ]
 
 # nrs_of_threads = [
