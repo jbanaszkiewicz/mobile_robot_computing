@@ -82,7 +82,7 @@ void Graph::showNodes()const
     std::cout << i.position.first << "," << i.position.second << std::endl;
   }
 }
-
+// wypisuje krawędzie na konsoli
 void Graph::showEdges()const
 {
   for(const auto& i : edges)
@@ -91,7 +91,11 @@ void Graph::showEdges()const
     "->" << i.second.first->position.first <<","<< i.second.first->position.first << std::endl;
   }
 }
-
+// Zapisuje graf do pliku o strukturze:
+// liczba_węzłów_w_grafie
+// maksymalna_ogległość_w_jakiej_wierzchołki_są_sąsiadami
+// [pozycja_x_węzła
+// pozycja_y_węzła]
 void Graph::saveToFile(std::string filename, realT radiusOfNeighbourhood)const
 {
   std::ofstream outputFile;
@@ -108,7 +112,11 @@ void Graph::saveToFile(std::string filename, realT radiusOfNeighbourhood)const
   
   outputFile.close();
 }
-
+// Wczytuje graf z pliku o strukturze:
+// liczba_węzłów_w_grafie
+// maksymalna_ogległość_w_jakiej_wierzchołki_są_sąsiadami
+// [pozycja_x_węzła
+// pozycja_y_węzła]
 Graph Graph::getGraph(std::string filename)
 {
   std::vector<Node> nodesFromFile;
@@ -132,8 +140,7 @@ Graph Graph::getGraph(std::string filename)
   graph = GraphGenerator::addEdges(graph, radiusOfNeighbourhood);
   return graph;
 }
-
-
+// Na podstawie ścieżki tworzy wektor numerów węzłów
 std::vector<sizeT> Graph::getNodeIndexesFromPath(const Path& path)const
 {
   auto indexes = std::vector<sizeT>();
@@ -146,12 +153,12 @@ std::vector<sizeT> Graph::getNodeIndexesFromPath(const Path& path)const
 
   return indexes;
 }
-
+// oblicza numer węzła na podstawie jego adresu 
 sizeT Graph::getNodeIndex(const Node * n)const
 {
   return n - nodes.data();
 }
-
+// Na podstawie wektora numerów węzłów tworzy ścieżkę
 Path Graph::getPathFromNodeIndexes(const std::vector<sizeT>& indexes)const
 {
   auto path = Path();
