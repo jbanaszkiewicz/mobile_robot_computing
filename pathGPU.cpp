@@ -1,5 +1,8 @@
 #include "pathGPU.h"
 #include <cmath>
+#include <cuda_runtime_api.h>
+#include <cuda.h>
+#include <ecuda/ecuda.hpp>
 __global__
 PathGPU::~PathGPU()
 {

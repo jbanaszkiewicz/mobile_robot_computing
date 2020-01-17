@@ -47,12 +47,11 @@ public:
   ~GraphGPU();
   __device__  
   ecuda::vector<NodeGPU> getNodes()const;
-  __device__  // ta funkcja jest trudna, przejrzeć jej użycia, najlepiej zamienić na getNeighboursVector
+  __device__  // TODO Adam ta funkcja jest trudna, przejrzeć jej użycia, najlepiej zamienić na getNeighboursVector
   std::pair<edgesT::const_iterator,edgesT::const_iterator>
     getNeighbours(const NodeGPU* node)const;
   __device__  
   ecuda::vector< edgeT> getNeighboursVector(
       const sizeT node);    
 };
-// PYT tutaj jest duzo mniej funkcji zadeklarowanych niz w oryginalnym pliku graph.h
 #endif //GraphGPU_H
