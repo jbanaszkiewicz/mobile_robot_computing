@@ -8,6 +8,7 @@ class Node;
 class Path;
 using sizeT = size_t;
 
+// Klasa odpowiadająca losowej ścieżce
 class RandomPath
 {
 public:
